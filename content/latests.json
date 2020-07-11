@@ -1,0 +1,36 @@
+{
+  "type": { "value": "feed" },
+  "author": { "name": "STEM DIVERSE TV" },
+  "id": "NSB-03",
+  "title": "LATEST",
+  "media_group": [],
+  "entry": [
+    {
+      "author": { "name": "SAS Software" },
+      "type": { "value": "video" },
+      "id": "NSBT-0001",
+      "title": "STEM Career Showcase for Students with Disabilities 2017",
+      "summary": "Students with disabilities meet and learn from successful STEM role models with similar disabilities at the North Carolina Museum of Natural Sciences.",
+      "published": "2005-04-06T20:25:05-08:00",
+      "updated": "2005-04-06T20:25:05-08:00",
+      "content": {
+        "src": "https://www.youtube.com/watch?v=AsAvCVAiqJo",
+        "type": "video/hls"
+      },
+      "link": { "type": "link", "href": "" },
+      "media_group": [
+        {
+          "type": "image",
+          "media_item": [
+            {
+              "key": "image_base",
+              "src": "http://i3.ytimg.com/vi/AsAvCVAiqJo/maxresdefault.jpg",
+              "type": "extern_image"
+            }
+          ]
+        }
+      ],
+      "extensions": { "section": "None" }
+    }
+  ]
+}

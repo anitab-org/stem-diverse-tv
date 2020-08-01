@@ -1,6 +1,6 @@
 from flask_restplus import Api
 
-from .content import api as ns1
+from .video import api as ns1
 
 
 

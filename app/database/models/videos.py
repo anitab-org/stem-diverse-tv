@@ -1,6 +1,7 @@
 from app.database.sqlalchemy_extension import db
 
 
+
 class VideoModel(db.Model):
 
     # Specifying table
@@ -18,7 +19,7 @@ class VideoModel(db.Model):
     archived = db.Column(db.Boolean)
     free_to_reuse = db.Column(db.Boolean)
     authorised_to_reuse = db.Column(db.Boolean)
-  
+    
     def json(self):
             '''Returns VideoModel object in json format.'''
             return {
@@ -48,3 +49,4 @@ class VideoModel(db.Model):
         '''Deletes video from the database.'''
         db.session.delete(self)
         db.session.commit()
+

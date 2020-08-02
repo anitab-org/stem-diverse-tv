@@ -12,11 +12,11 @@ class CategoryModel(db.Model):
     section = db.relationship('SectionModel', secondary=category_section, backref=db.backref('category', lazy = 'dynamic'))
     
     def save_to_db(self) -> None:
-        '''Add author to database'''
+        '''Add category to database'''
         db.session.add(self)
         db.session.commit()
 
     def delete_from_db(self) -> None:
-        '''Deletes author from the database.'''
+        '''Deletes category from the database.'''
         db.session.delete(self)
         db.session.commit()

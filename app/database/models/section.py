@@ -12,11 +12,11 @@ class SectionModel(db.Model):
     videos = db.relationship('VideoModel', secondary=section_video, backref=db.backref('sections', lazy = 'dynamic'))
     
     def save_to_db(self) -> None:
-        '''Add author to database'''
+        '''Add section to database'''
         db.session.add(self)
         db.session.commit()
 
     def delete_from_db(self) -> None:
-        '''Deletes author from the database.'''
+        '''Deletes section from the database.'''
         db.session.delete(self)
         db.session.commit()

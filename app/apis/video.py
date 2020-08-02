@@ -19,8 +19,10 @@ class VideoLibrary(Resource):
 @api.route('/')
 class VideoAuthor(Resource):
     def get(self):
-        ''' To test the bidirectional and many-to-many relations of database. 
-        Below is the sample code debud the proper functionality of backref and relationships.  '''
+        
+        ''' To demonstrate the bidirectional and many-to-many relations of database. 
+        Visit localhost:5000/video 
+        Below is the sample code to debug the proper functionality of backref and relationships.  '''
         author1 = AuthorModel(name="Jill")
         author2 = AuthorModel(name="John")
         author3 = AuthorModel(name="Tom")
@@ -46,32 +48,29 @@ class VideoAuthor(Resource):
         section3 = SectionModel(title= "cars")
         category1 = CategoryModel(title= "Company")
         category2 = CategoryModel(title= "Games")
-        
+        section1.save_to_db()
+        section2.save_to_db()
+        section3.save_to_db()
+        category1.save_to_db()
+        category2.save_to_db()
         
         video1.authors.append(author1)
-        db.session.commit()
         video3.authors.append(author2)
-        db.session.commit()
         video1.authors.append(author3)
-        db.session.commit()
         video2.authors.append(author3)
-        db.session.commit()
         
         video1.sections.append(section2)
         video2.sections.append(section2)
         video3.sections.append(section2)
-        db.session.commit()
         
         video4.sections.append(section1)
         video5.sections.append(section1)
         video6.sections.append(section3)
-        db.session.commit()
         
         section1.category.append(category1)
         section3.category.append(category1)
         section2.category.append(category2)
         db.session.commit()
-        
         
         sections = category1.section
         print("Section of Category Company: \t")
@@ -92,7 +91,5 @@ class VideoAuthor(Resource):
         vid = section3.videos
         print("\nVideo of section Cars:\t")
         print([v.name for v in vid])
-
-        
         
         return {"message": "Details are added to database"}, 200

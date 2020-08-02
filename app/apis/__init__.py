@@ -6,7 +6,7 @@ from .video import api as ns1
 
 api = Api(
     title='STEM Diverse TV',
-    version='1.0',
+    version='0.1.0',
     description='',
 )
 

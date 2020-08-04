@@ -22,3 +22,7 @@ class AuthorModel(db.Model):
         '''Deletes author from the database.'''
         db.session.delete(self)
         db.session.commit()
+        
+    @classmethod
+    def find_by_name(cls, name: str) -> 'AuthorModel':
+        return cls.query.filter_by(name=name).first()

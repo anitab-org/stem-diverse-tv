@@ -27,9 +27,9 @@ newPRWelcomeComment: |
   Please ensure your Pull Request meets the [Commit Message Style Guide](https://github.com/anitab-org/mentorship-backend/wiki/Commit-Message-Style-Guide).
   We will review it soon! Till then you can checkout the `README.md` for more details on it.
 
-  Moja-Global is an inclusive community, committed to creating a safe and positive environment.🌸 Please adhere to our [Code Of Conduct]().
+  AnitaB-Org is an inclusive community, committed to creating a safe and positive environment.🌸 Please adhere to our [Code Of Conduct](https://github.com/anitab-org/stem-diverse-tv/blob/master/docs/code_of_conduct.md).
 
-  Incase you want to join us on [Moja-Global Open Source Slack]() , please drop an email [here](mailto:)
+  Incase you want to join us on [Zulip](http://anitab-org.zulipchat.com).
   Hope you have a great time here :)
 
 # Configuration for first-pr-merge - https://github.com/behaviorbot/first-pr-merge

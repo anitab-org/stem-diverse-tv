@@ -11,6 +11,7 @@ class VideoModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Text())
     url = db.Column(db.Text())
+    preview_url = db.Column(db.Text())
     title = db.Column(db.String(200))
     published = db.Column(db.Integer)
     source = db.Column(db.String(50))
@@ -26,6 +27,7 @@ class VideoModel(db.Model):
                 "id": self.id,
                 "name": self.name,
                 "url": self.url,
+                "preview_url": self.preview_url,
                 "title": self.title,
                 "published": self.published,
                 "source": self.source,

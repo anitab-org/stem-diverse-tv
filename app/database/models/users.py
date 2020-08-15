@@ -11,7 +11,7 @@ class UserModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30))
     username = db.Column(db.String(30))
-    email = db.Column(db.String(30))
+    email = db.Column(db.String(100))
     password_hash = db.Column(db.String(100))
     registration_date = db.Column(db.Integer)
     terms_and_conditions_checked = db.Column(db.Boolean)

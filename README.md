@@ -24,8 +24,8 @@ source ./venv/bin/activate
 pip3 install -r requirements.txt 
 ```
 
-- Please download Firebase Admin SDK service json file from Firebase Console and put the in project's root directory. Rename file to firebase_cred.json
-- Make .env file from given env.template file and add details like API_KEY, which is a web api key from firebase. Find your project's web api key in project's overview tab on firebase console.
+- Please download Firebase Admin SDK service json file from Firebase Console and put that in project's root directory. Rename file to firebase_cred.json
+- Make .env file from given .env.template file and add details like API_KEY, which is a web api key from firebase. Find your project's web api key in project's overview tab on firebase console.
 
 After this, execute:
 ```

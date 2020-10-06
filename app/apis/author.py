@@ -5,7 +5,7 @@ from flask_restplus import Api, Resource, Namespace, fields, Model
 from app.database.models.author import AuthorModel
 from app.apis.models.author import add_author_model
 from app.apis.validations.author import validate_author_details
-
+from app.utils.view_decorator import token_required
 author_ns = Namespace('author', description='Author Details')
 author_ns.models[add_author_model.name] = add_author_model
 
@@ -34,5 +34,10 @@ class AddAuthor(Resource):
         
         return messages.AUTHOR_ADDED_SUCCESSFULLY, 200
     
+    @author_ns.doc(params={'authorization': {'in': 'header', 'description': 'An authorization token'}})
     def get(self):
-        return {}, 200
+        authors = AuthorModel.query.all()
+        all_authors = list()
+        for author in authors:
+            all_authors.append(author.json())
+        return {"authors": all_authors}, 200

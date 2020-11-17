@@ -21,8 +21,10 @@ class AddCategory(Resource):
         if existing_category:
             return {'message': 'Category already exists'}, 409
         
+        ''' Saving title in capitalized letter. Which can prevent inconsistency in finding existing category title. '''
         category = CategoryModel(title.capitalize())
         category.save_to_db()
+        
         return {'message': 'Category added'}, 201
 
 @api.route('/latest')

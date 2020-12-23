@@ -15,7 +15,7 @@ def create_app() -> Flask:
     load_dotenv(find_dotenv())
     
     ''' Download service file from firebase and put it in project root directory '''
-    cred = credentials.Certificate('firebase_cred.json')
+    cred = credentials.Certificate('google-credentials.json')
     firebase_admin.initialize_app(cred)
     
     from app.apis import api

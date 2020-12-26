@@ -6,6 +6,7 @@ from app.database.models.author import AuthorModel
 from app.apis.models.author import add_author_model
 from app.apis.validations.author import validate_author_details
 from app.utils.view_decorator import token_required
+
 author_ns = Namespace('author', description='Author Details')
 author_ns.models[add_author_model.name] = add_author_model
 

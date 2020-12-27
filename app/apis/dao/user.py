@@ -22,8 +22,7 @@ class UserDAO:
         existing_user = UserModel.find_by_username(username)
         if existing_user:
             return {"message": "Acount already exists with this username"}, 400
-        
-        try:    
+        try:
             user = auth.create_user(
                 email=email,
                 email_verified=False,

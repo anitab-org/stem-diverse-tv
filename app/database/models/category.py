@@ -12,6 +12,13 @@ class CategoryModel(db.Model):
     section = db.relationship('SectionModel', secondary=category_section,
                               backref=db.backref('category', lazy='dynamic'))
 
+    def __init__(self, title):
+        self.title = title
+    
+    @classmethod
+    def find_by_title(cls, title: str) -> 'CategoryModel':
+        return cls.query.filter_by(title=title.capitalize()).first()
+    
     def save_to_db(self) -> None:
         '''Add category to database'''
         db.session.add(self)

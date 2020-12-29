@@ -130,3 +130,7 @@ dmypy.json
 
 # Firebase Credentials service file
 firebase_cred.json
+
+
+# local database file
+local_data.db

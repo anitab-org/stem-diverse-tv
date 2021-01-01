@@ -13,6 +13,13 @@ class AuthorModel(db.Model):
     profile_image = db.Column(db.Text())
     videos = db.relationship('VideoModel', secondary=video_author, backref=db.backref('authors', lazy = 'dynamic'))
     
+    def json(self):
+        return {
+            "id":self.id,
+            "name":self.name,
+            "profile_image":self.profile_image
+        }
+    
     def save_to_db(self) -> None:
         '''Add author to database'''
         db.session.add(self)

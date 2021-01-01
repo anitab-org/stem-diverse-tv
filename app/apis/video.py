@@ -10,6 +10,23 @@ from app.database.sqlalchemy_extension import db
 
 api = Namespace('video', description='Video Library')
 
+@api.route('/add_category')
+class AddCategory(Resource):
+    
+    @api.doc(params={'title': 'Title of category'})
+    def post(self):
+        args = request.args
+        title = args["title"]
+        existing_category = CategoryModel.find_by_title(title)
+        if existing_category:
+            return {'message': 'Category already exists'}, 409
+        
+        ''' Saving title in capitalized letter. Which can prevent inconsistency in finding existing category title. '''
+        category = CategoryModel(title.capitalize())
+        category.save_to_db()
+        
+        return {'message': 'Category added'}, 201
+
 @api.route('/latest')
 class VideoLibrary(Resource):
     def get(self):

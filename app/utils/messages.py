@@ -13,3 +13,7 @@ TOKEN_EXPIRED = {
 TOKEN_INVALID = {
     "message" : "ID token is invalid"
 }
+
+
+# Section messages
+SECTION_ALREADY_EXISTS = {"message": "Section with the given title already exists!"}

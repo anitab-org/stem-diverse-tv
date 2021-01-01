@@ -3,12 +3,12 @@ import json
 from app.utils import messages
 from flask_restplus import Api, Resource, Namespace, fields, Model
 from app.database.models.author import AuthorModel
-from app.apis.models.author import add_author_model
+from app.apis.models.author import *
 from app.apis.validations.author import validate_author_details
 from app.utils.view_decorator import token_required
 
 author_ns = Namespace('author', description='Author Details')
-author_ns.models[add_author_model.name] = add_author_model
+add_models_to_namespace(author_ns)
 
 @author_ns.route('/')
 class AddAuthor(Resource):

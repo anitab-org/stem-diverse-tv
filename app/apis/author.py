@@ -1,40 +1,42 @@
-from flask import request, Response
-import json
-from app.utils import messages
-from flask_restplus import Api, Resource, Namespace, fields, Model
-from app.database.models.author import AuthorModel
+from flask import request
+from flask_restplus import Resource, Namespace
+
+from app.apis.dao.author_dao import AuthorDAO
 from app.apis.models.author import *
 from app.apis.validations.author import validate_author_details
-from app.utils.view_decorator import token_required
+from app.database.models.author import AuthorModel
+from app.mappers.author_mapper import map_to_dto, map_to_dto_list
+from app.utils import messages
 
 author_ns = Namespace('author', description='Author Details')
 add_models_to_namespace(author_ns)
 
+
 @author_ns.route('/')
-class AddAuthor(Resource):
-    
+class AuthorList(Resource):
+
     @author_ns.expect(add_author_model)
     def post(self):
-        
+
         data = request.json
         validate_result = validate_author_details(data)
-        
+
         if validate_result != {}:
             return validate_result, 400
-        
+
         name = data["name"]
         profile_image = data["profile_image"]
-        
+
         existing_author = AuthorModel.find_by_name(name)
-        
+
         if existing_author:
             return messages.AUTHOR_ALREADY_EXISTS, 400
         else:
             author = AuthorModel(name=name, profile_image=profile_image)
             author.save_to_db()
-        
+
         return messages.AUTHOR_ADDED_SUCCESSFULLY, 200
-    
+
     @author_ns.doc(params={'authorization': {'in': 'header', 'description': 'An authorization token'}})
     def get(self):
         authors = AuthorModel.query.all()
@@ -42,3 +44,30 @@ class AddAuthor(Resource):
         for author in authors:
             all_authors.append(author.json())
         return {"authors": all_authors}, 200
+
+
+@author_ns.route('/<int:id>')
+class Author(Resource):
+    def get(self, id):
+        """
+        Returns author with the given id (if any), else null.
+        :param id: id of the author
+        :return: author representation or null
+        """
+        author = AuthorDAO.find_author_by_id(id)
+        return map_to_dto(author), 200
+
+
+@author_ns.route('/<string:name>', '/q')
+# NOTE: it's better to follow route pattern -> every search endpoint could start with this
+class AuthorsByName(Resource):
+    def get(self, name=None):
+        """
+        Returns authors with the given name (if any), else null.
+        :param name: name of the author
+        :return: list of author representations or empty list
+        """
+        if name is None:
+            name = request.args.get('name')
+        authors = AuthorDAO.find_authors_by_name(name)
+        return {"authors": map_to_dto_list(authors)}, 200

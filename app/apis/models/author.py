@@ -1,5 +1,6 @@
 from flask_restplus import fields, Model
 
+
 def add_models_to_namespace(api_namespace):
     api_namespace.models[add_author_model.name] = add_author_model
 

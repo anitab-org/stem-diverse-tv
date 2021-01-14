@@ -1,4 +1,5 @@
 from app.database.models.section import SectionModel
+from typing import List
 
 
 class SectionDAO:
@@ -21,3 +22,13 @@ class SectionDAO:
         :return: SectionModel object (or None)
         """
         return SectionModel.query.filter_by(title=title).first()
+
+    @staticmethod
+    def find_sections_by_ids(ids: List[int]) -> List['SectionModel']:
+        """
+        Search sections by list of ids
+        :param ids: list of ids
+        :return: List of SectionModel object which ids are provided
+        """
+        return SectionModel.query.filter(SectionModel.id.in_(ids))
+

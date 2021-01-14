@@ -23,3 +23,8 @@ class SectionModel(db.Model):
         '''Deletes section from the database.'''
         db.session.delete(self)
         db.session.commit()
+
+    def add_video(self, video: 'VideoModel') -> None:
+        self.videos.append(video)
+        db.session.add(self)
+        db.session.commit()

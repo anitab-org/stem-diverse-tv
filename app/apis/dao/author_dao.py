@@ -1,5 +1,6 @@
 from app.database.models.author import AuthorModel
 from app.database.models.video import VideoModel
+
 from typing import List
 
 
@@ -64,9 +65,5 @@ class AuthorDAO:
 
         for author in authors:
             author.add_video(video)
-
-
-
-
 
 

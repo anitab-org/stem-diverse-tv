@@ -7,13 +7,16 @@ TOKEN_REVOKED = {
 }
 
 TOKEN_EXPIRED = {
-    "message": "ID token is expired" 
+    "message": "ID token is expired"
 }
 
 TOKEN_INVALID = {
-    "message" : "ID token is invalid"
+    "message": "ID token is invalid"
 }
 
+TOKEN_MISSING = {
+    "message": "ID token is missing"
+}
 
 # Section messages
 SECTION_ALREADY_EXISTS = {"message": "Section with the given title already exists!"}

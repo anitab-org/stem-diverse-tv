@@ -7,6 +7,7 @@ from app.apis.validations.author import validate_author_details
 from app.database.models.author import AuthorModel
 from app.mappers.author_mapper import map_to_dto, map_to_dto_list
 from app.utils import messages
+from .middlewares.auth import token_required
 
 author_ns = Namespace('author', description='Author Details')
 add_models_to_namespace(author_ns)
@@ -14,8 +15,9 @@ add_models_to_namespace(author_ns)
 
 @author_ns.route('/')
 class AuthorList(Resource):
-
+    @token_required
     @author_ns.expect(add_author_model)
+    @author_ns.doc(params={'authorization': {'in': 'header', 'description': 'An authorization token'}})
     def post(self):
 
         data = request.json
@@ -37,6 +39,7 @@ class AuthorList(Resource):
 
         return messages.AUTHOR_ADDED_SUCCESSFULLY, 200
 
+    @token_required
     @author_ns.doc(params={'authorization': {'in': 'header', 'description': 'An authorization token'}})
     def get(self):
         authors = AuthorModel.query.all()
@@ -48,6 +51,8 @@ class AuthorList(Resource):
 
 @author_ns.route('/<int:id>')
 class Author(Resource):
+    @token_required
+    @author_ns.doc(params={'authorization': {'in': 'header', 'description': 'An authorization token'}})
     def get(self, id):
         """
         Returns author with the given id (if any), else null.
@@ -61,6 +66,8 @@ class Author(Resource):
 @author_ns.route('/<string:name>', '/q')
 # NOTE: it's better to follow route pattern -> every search endpoint could start with this
 class AuthorsByName(Resource):
+    @token_required
+    @author_ns.doc(params={'authorization': {'in': 'header', 'description': 'An authorization token'}})
     def get(self, name=None):
         """
         Returns authors with the given name (if any), else null.

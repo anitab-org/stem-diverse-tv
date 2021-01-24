@@ -129,7 +129,7 @@ dmypy.json
 .pyre/
 
 # Firebase Credentials service file
-firebase_cred.json
+google-credentials.json
 
 
 # local database file

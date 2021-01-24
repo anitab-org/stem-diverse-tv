@@ -10,15 +10,16 @@ from app.apis.dao.video_dao import VideoDAO
 from app.apis.dao.author_dao import AuthorDAO
 from datetime import datetime
 from ..mappers.video_mapper import map_to_dto
-
+from .middlewares.auth import token_required
 video_ns = Namespace('video', description='Video Library')
 add_models_to_namespace(video_ns)
 
 
 @video_ns.route('/add_category')
 class AddCategory(Resource):
-
+    @token_required
     @video_ns.doc(params={'title': 'Title of category'})
+    @video_ns.doc(params={'authorization': {'in': 'header', 'description': 'An authorization token'}})
     def post(self):
         args = request.args
         title = args["title"]
@@ -35,6 +36,8 @@ class AddCategory(Resource):
 
 @video_ns.route('/latest')
 class VideoLibrary(Resource):
+    @token_required
+    @video_ns.doc(params={'authorization': {'in': 'header', 'description': 'An authorization token'}})
     def get(self):
         with open('./content/latests.json') as f:
             return json.loads(f.read())
@@ -43,6 +46,8 @@ class VideoLibrary(Resource):
 
 @video_ns.route('/')
 class Video(Resource):
+    @token_required
+    @video_ns.doc(params={'authorization': {'in': 'header', 'description': 'An authorization token'}})
     @video_ns.expect(add_video_model)
     def post(self):
         data = request.json

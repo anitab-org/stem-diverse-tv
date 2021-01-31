@@ -2,7 +2,6 @@ from flask import request, Response
 import os
 import json
 import requests
-from urllib.parse import urlparse, parse_qs
 from flask_restplus import Api, Resource, Namespace, reqparse, marshal
 from app.apis.dao.section_dao import SectionDAO
 from app.database.models.category import CategoryModel
@@ -13,56 +12,10 @@ from app.apis.dao.author_dao import AuthorDAO
 from datetime import datetime
 from ..mappers.video_mapper import map_to_dto
 from .middlewares.auth import token_required
+from ..utils.extract_video_id import extract_video_id
 
 video_ns = Namespace("video", description="Video Library")
 add_models_to_namespace(video_ns)
-
-
-def extract_video_id(url):
-    # Examples:
-    # - http://youtu.be/SA2iWivDJiE
-    # - http://www.youtube.com/watch?v=_oPAwA_Udwc&feature=feedu
-    # - http://www.youtube.com/embed/SA2iWivDJiE
-    # - http://www.youtube.com/v/SA2iWivDJiE?version=3&amp;hl=en_US
-    query = urlparse(url)
-    if query.hostname == "youtu.be":
-        return query.path[1:]
-    if query.hostname in {"www.youtube.com", "youtube.com"}:
-        if query.path == "/watch":
-            return parse_qs(query.query)["v"][0]
-        if query.path[:7] == "/embed/":
-            return query.path.split("/")[2]
-        if query.path[:3] == "/v/":
-            return query.path.split("/")[2]
-    # fail?
-    return None
-
-
-yt_video_section_field = video_ns.model(
-    "Section",
-    {
-        "title": fields.String(required=True),
-        "category": fields.String,
-        "id": fields.String(required=True),
-    },
-)
-
-# yt_video_section_id_field = video_ns.model(
-#     "Existing Section Id", {"id": fields.String(required=True)}
-# )
-
-add_yt_video_fields = video_ns.model(
-    "Add Youtube Video Fields",
-    {
-        "url": fields.String(
-            description="YouTube video url",
-            required=True,
-            default="http://www.youtube.com/watch?v=_oPAwA_Udwc&feature=feedu",
-        ),
-        "sections": fields.List(fields.Nested(yt_video_section_field)),
-        "authors": fields.List(fields.Integer(description="existing author id")),
-    },
-)
 
 
 @video_ns.route("/add_category")
@@ -170,37 +123,50 @@ class Video(Resource):
 @video_ns.route("/youtube")
 class AddYoutubeVideo(Resource):
     @token_required
-    @video_ns.expect(add_yt_video_fields)
+    @video_ns.doc(
+        params={
+            "authorization": {"in": "header", "description": "An authorization token"}
+        }
+    )
+    @video_ns.expect(add_yt_video_model)
     def post(self):
         payload = request.json
         video_url = payload["url"]
         video_id = extract_video_id(video_url)
-        searchResult = requests.get(
+        response = requests.get(
             f'https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cid%2Clocalizations%2Cstatistics%2CtopicDetails&id={video_id}&key={os.environ.get("API_KEY")}'
         )
-        result = searchResult.json()
-        # datePublished = result["items"][0]["snippet"]["publishedAt"]
-        # formattedDate = datePublished.split("T")[0]
+        video_json = response.json()
+        response = {"notes": []}
+
+
+        if len(video_json["items"]) == 0:
+            response["notes"].append("No video found, please check the url.")
+            return response, 404
+        else:
+            video = video_json["items"][0]
+
         video_data = {
-            "title": result["items"][0]["snippet"]["title"],
+            "title": video["snippet"]["title"],
             "url": video_url,
-            "preview_url": result["items"][0]["snippet"]["thumbnails"]["standard"][
+            "preview_url": video["snippet"]["thumbnails"]["standard"][
                 "url"
             ],
-            "date_published": result["items"][0]["snippet"]["publishedAt"].split("T")[
+            "date_published": video["snippet"]["publishedAt"].split("T")[
                 0
             ],
             "source": "YouTube",
-            "channel": result["items"][0]["snippet"]["channelTitle"],
-            "duration": result["items"][0]["contentDetails"]["duration"].split("T")[1],
+            "channel": video["snippet"]["channelTitle"],
+            "duration": video["contentDetails"]["duration"].split("T")[1],
             "archived": False,
-            "free_to_reuse": result["items"][0]["contentDetails"]["licensedContent"],
-            "authorized_to_reuse": result["items"][0]["contentDetails"][
+            "free_to_reuse": video["contentDetails"]["licensedContent"],
+            "authorized_to_reuse": video["contentDetails"][
                 "licensedContent"
             ],
             "category_sections": payload["sections"][0]["id"],
             "authors": list(payload["authors"]),
         }
+
 
         validation_result = validate_video_creation_data(video_data)
 
@@ -208,7 +174,6 @@ class AddYoutubeVideo(Resource):
             return validation_result
         url = video_data["url"]
         existing_video = VideoDAO.find_video_by_url(url)
-        response = {"notes": []}
 
         # find authors from the list
         authors = AuthorDAO.find_authors_by_ids(video_data["authors"])

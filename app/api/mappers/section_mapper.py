@@ -1,6 +1,8 @@
 """
 Mapping from model object to representation object"
 """
+
+
 def map_to_response(section):
     """
     :param section: Section object

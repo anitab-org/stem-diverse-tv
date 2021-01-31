@@ -14,7 +14,7 @@ class CategoryDAO:
         return category
 
     @staticmethod
-    def find_category_by_title(title: str) -> 'SectionModel':
+    def find_category_by_title(title: str) -> "SectionModel":
         return CategoryModel.query.filter_by(title=title).first()
 
     @staticmethod

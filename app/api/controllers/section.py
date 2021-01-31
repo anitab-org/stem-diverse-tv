@@ -1,22 +1,28 @@
 from flask_restplus import Namespace, Resource
-from app.apis.models.section import *
-from flask import request, Response
-from .validations.section import validate_section_data
-from .dao.section_dao import SectionDAO
-from .dao.category_dao import CategoryDAO
-from ..mappers.section_mapper import map_to_response
-from ..utils.messages import SECTION_ALREADY_EXISTS
+from flask import request
 from sqlalchemy.exc import SQLAlchemyError
-from .middlewares.auth import token_required
-section_ns = Namespace('section', description='Section Details')
+
+from app.api.models.section import *
+from app.api.validations.section import validate_section_data
+from app.api.dao.section_dao import SectionDAO
+from app.api.dao.category_dao import CategoryDAO
+from app.api.mappers.section_mapper import map_to_response
+from app.utils.messages import SECTION_ALREADY_EXISTS
+from app.api.middlewares.auth import token_required
+
+section_ns = Namespace("sections", description="Section Details")
 add_models_to_namespace(section_ns)
 
 
-@section_ns.route('/')
+@section_ns.route("/")
 class Section(Resource):
     @token_required
     @section_ns.expect(add_section_model)
-    @section_ns.doc(params={'authorization': {'in': 'header', 'description': 'An authorization token'}})
+    @section_ns.doc(
+        params={
+            "authorization": {"in": "header", "description": "An authorization token"}
+        }
+    )
     def post(self):
         data = request.json
         validation_result = validate_section_data(data)

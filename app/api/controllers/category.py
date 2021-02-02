@@ -31,12 +31,7 @@ class Category(Resource):
 
 @category_ns.route("/all")
 class AllCategories(Resource):
-    @token_required
-    @category_ns.doc(
-        params={
-            "authorization": {"in": "header", "description": "An authorization token"}
-        }
-    )
+
     def get(self):
         category_models = CategoryModel.query.all()
         result = list()

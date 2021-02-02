@@ -3,16 +3,15 @@ import os
 import json
 import requests
 from flask_restplus import Api, Resource, Namespace, reqparse, marshal
-from app.apis.dao.section_dao import SectionDAO
-from app.apis.models.video import *
-from app.apis.validations.video import validate_video_creation_data
-from app.apis.dao.video_dao import VideoDAO
-from app.apis.dao.author_dao import AuthorDAO
+from app.api.dao.section_dao import SectionDAO
+from app.api.models.video import *
+from app.api.validations.video import validate_video_creation_data
+from app.api.dao.video_dao import VideoDAO
+from app.api.dao.author_dao import AuthorDAO
 from datetime import datetime
 from ..mappers.video_mapper import map_to_dto
-from .middlewares.auth import token_required
-from ..utils.extract_video_id import extract_video_id
-
+from app.api.middlewares.auth import token_required
+from app.utils.extract_video_id import extract_video_id
 
 video_ns = Namespace("video", description="Video Library")
 add_models_to_namespace(video_ns)
@@ -117,7 +116,6 @@ class AddYoutubeVideo(Resource):
         video_json = response.json()
         response = {"notes": []}
 
-
         if len(video_json["items"]) == 0:
             response["notes"].append("No video found, please check the url.")
             return response, 404
@@ -127,24 +125,17 @@ class AddYoutubeVideo(Resource):
         video_data = {
             "title": video["snippet"]["title"],
             "url": video_url,
-            "preview_url": video["snippet"]["thumbnails"]["standard"][
-                "url"
-            ],
-            "date_published": video["snippet"]["publishedAt"].split("T")[
-                0
-            ],
+            "preview_url": video["snippet"]["thumbnails"]["standard"]["url"],
+            "date_published": video["snippet"]["publishedAt"].split("T")[0],
             "source": "YouTube",
             "channel": video["snippet"]["channelTitle"],
             "duration": video["contentDetails"]["duration"].split("T")[1],
             "archived": False,
             "free_to_reuse": video["contentDetails"]["licensedContent"],
-            "authorized_to_reuse": video["contentDetails"][
-                "licensedContent"
-            ],
+            "authorized_to_reuse": video["contentDetails"]["licensedContent"],
             "category_sections": payload["sections"][0]["id"],
             "authors": list(payload["authors"]),
         }
-
 
         validation_result = validate_video_creation_data(video_data)
 

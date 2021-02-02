@@ -1,7 +1,8 @@
-from app.database.models.video_author import video_author
-from app.database.sqlalchemy_extension import db
-from typing import Dict, List
 from datetime import datetime
+from typing import Dict, List
+
+from app.database.sqlalchemy_extension import db
+
 
 class VideoModel(db.Model):
     # Specifying table
@@ -22,28 +23,28 @@ class VideoModel(db.Model):
     authorized_to_reuse = db.Column(db.Boolean)
 
     def json(self):
-        '''Returns VideoModel object in json format.'''
+        """Returns VideoModel object in json format."""
         return {
             "id": self.id,
             "name": self.name,
             "url": self.url,
             "preview_url": self.preview_url,
             "title": self.title,
-            "date_published": datetime.strftime(self.date_published, '%Y-%m-%d'),
+            "date_published": datetime.strftime(self.date_published, "%Y-%m-%d"),
             "source": self.source,
             "channel": self.channel,
             "duration": self.duration,
             "archived": self.archived,
             "free_to_reuse": self.free_to_reuse,
-            "authorized_to_reuse": self.authorized_to_reuse
+            "authorized_to_reuse": self.authorized_to_reuse,
         }
 
-    def find_by_id(cls, _id: int) -> 'VideoModel':
-        '''Returns a particular video of given id.'''
+    def find_by_id(cls, _id: int) -> "VideoModel":
+        """Returns a particular video of given id."""
         return cls.query.filter_by(id=_id).first()
 
     def save_to_db(self) -> None:
-        '''Add video to database'''
+        """Add video to database"""
         db.session.add(self)
         db.session.commit()
 
@@ -55,12 +56,12 @@ class VideoModel(db.Model):
         db.session.commit()
 
     def delete_from_db(self) -> None:
-        '''Deletes video from the database.'''
+        """Deletes video from the database."""
         db.session.delete(self)
         db.session.commit()
 
     # authors association
-    def add_authors(self, authors: List['AuthorModel']) -> None:
+    def add_authors(self, authors: List["AuthorModel"]) -> None:
         """
         Add video authors entities to associated m2m model.
         :param authors: list of authors to add
@@ -69,7 +70,7 @@ class VideoModel(db.Model):
         self.authors.extend(authors)
         db.session.commit()
 
-    def update_authors(self, authors: List['AuthorModel']) -> None:
+    def update_authors(self, authors: List["AuthorModel"]) -> None:
         """
         Replace authors of video -> m2m records
         :param authors: list of new authors
@@ -87,7 +88,7 @@ class VideoModel(db.Model):
         db.session.commit()
 
     # authors association
-    def add_sections(self, sections: List['SectionModel']) -> None:
+    def add_sections(self, sections: List["SectionModel"]) -> None:
         """
         Add video sections entities to associated m2m model.
         :param sections: list of sections to add
@@ -96,7 +97,7 @@ class VideoModel(db.Model):
         self.sections.extend(sections)
         db.session.commit()
 
-    def update_sections(self, sections: List['SectionModel']) -> None:
+    def update_sections(self, sections: List["SectionModel"]) -> None:
         """
         Replace sections of video -> m2m records
         :param sections: list of new sections

@@ -13,15 +13,16 @@ register_user_model = Model(
         "username": fields.String(required=True, description="Username of user"),
         "email": fields.String(required=True, description="Email of user"),
         "password": fields.String(required=True, description="Password of user"),
-        "terms_and_conditions_checked": fields.Boolean(required=True,
-                                                       description="Wether terms and conditions are checked"),
-    }
+        "terms_and_conditions_checked": fields.Boolean(
+            required=True, description="Wether terms and conditions are checked"
+        ),
+    },
 )
 
 login_user_model = Model(
     "Fields needed for user login",
     {
         "email": fields.String(required=True, description="email of user"),
-        "password": fields.String(required=True, description="password of user")
-    }
+        "password": fields.String(required=True, description="password of user"),
+    },
 )

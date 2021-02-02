@@ -10,7 +10,8 @@ REQUIRED_FIELDS_MAP = {
     "channel": "channel",
     "duration": "duration",
     "category_sections": "category sections",
-    "authors": "authors"}
+    "authors": "authors",
+}
 
 
 def validate_video_creation_data(data: Dict[str, object]):
@@ -25,11 +26,15 @@ def validate_video_creation_data(data: Dict[str, object]):
 def _validate_payload_structure(data: Dict[str, object]):
     for field in REQUIRED_FIELDS_MAP:
         if field not in data:
-            return {"message": f"{REQUIRED_FIELDS_MAP[field]} field must be provided."}, 400
+            return {
+                "message": f"{REQUIRED_FIELDS_MAP[field]} field must be provided."
+            }, 400
 
 
 def _validate_date_format(date):
     try:
         datetime.strptime(date, "%Y-%m-%d")
     except ValueError as e:
-        return {"message": "Date format is not valid. Use the following format: ('YYYY-mm-dd')"}, 400
+        return {
+            "message": "Date format is not valid. Use the following format: ('YYYY-mm-dd')"
+        }, 400

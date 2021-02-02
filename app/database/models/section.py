@@ -9,22 +9,26 @@ class SectionModel(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(64), unique=True)
-    videos = db.relationship('VideoModel', secondary=section_video, backref=db.backref('sections', lazy='dynamic'))
+    videos = db.relationship(
+        "VideoModel",
+        secondary=section_video,
+        backref=db.backref("sections", lazy="dynamic"),
+    )
 
     def init(self, title):
         self.title = title
 
     def save_to_db(self) -> None:
-        '''Add section to database'''
+        """Add section to database"""
         db.session.add(self)
         db.session.commit()
 
     def delete_from_db(self) -> None:
-        '''Deletes section from the database.'''
+        """Deletes section from the database."""
         db.session.delete(self)
         db.session.commit()
 
-    def add_video(self, video: 'VideoModel') -> None:
+    def add_video(self, video: "VideoModel") -> None:
         self.videos.append(video)
         db.session.add(self)
         db.session.commit()

@@ -2,15 +2,15 @@ from flask import request, Response, jsonify
 import json
 from flask_restplus import Api, Resource, Namespace
 
-from app.apis.dao.section_dao import SectionDAO
+from app.api.dao.section_dao import SectionDAO
 
-from app.apis.models.video import *
-from app.apis.validations.video import validate_video_creation_data
-from app.apis.dao.video_dao import VideoDAO
-from app.apis.dao.author_dao import AuthorDAO
+from app.api.models.video import *
+from app.api.validations.video import validate_video_creation_data
+from app.api.dao.video_dao import VideoDAO
+from app.api.dao.author_dao import AuthorDAO
 from datetime import datetime
 from ..mappers.video_mapper import map_to_dto
-from .middlewares.auth import token_required
+from app.api.middlewares.auth import token_required
 
 video_ns = Namespace("video", description="Video Library")
 add_models_to_namespace(video_ns)

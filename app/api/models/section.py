@@ -9,6 +9,6 @@ add_section_model = Model(
     "Fields needed for adding new section",
     {
         "title": fields.String(required=True, description="secton title"),
-        "category": fields.String(required=True, description="category of the section")
-    }
+        "category": fields.String(required=True, description="category of the section"),
+    },
 )

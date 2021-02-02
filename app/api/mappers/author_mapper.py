@@ -6,7 +6,7 @@ from typing import List
 from app.database.models.author import AuthorModel
 
 
-def map_to_dto(author: 'AuthorModel'):
+def map_to_dto(author: "AuthorModel"):
     """
     :param author: Author object
     :return: corresponding response made by mapping object to DTO
@@ -19,7 +19,7 @@ def map_to_dto(author: 'AuthorModel'):
     return author.json() if author else None
 
 
-def map_to_dto_list(authors: List['AuthorModel']):
+def map_to_dto_list(authors: List["AuthorModel"]):
     """
     :param authors: list of Author objects
     :return: corresponding response list made by mapping objects to DTOs
@@ -33,4 +33,3 @@ def map_to_dto_list(authors: List['AuthorModel']):
     for author in authors:
         author_repr_list.append(map_to_dto(author))
     return author_repr_list
-

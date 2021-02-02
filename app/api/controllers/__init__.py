@@ -1,9 +1,10 @@
 from flask_restplus import Api
 
 from app.api.controllers.video import video_ns as ns1
-from app.api.controllers.author import author_ns as ns2
-from app.api.controllers.user import user_ns as ns3
-from app.api.controllers.section import section_ns
+from .author import author_ns as ns2
+from .user import user_ns as ns3
+from .section import section_ns as ns4
+from .category import category_ns as ns5
 
 
 api = Api(
@@ -15,4 +16,5 @@ api = Api(
 api.add_namespace(ns1)
 api.add_namespace(ns2)
 api.add_namespace(ns3)
-api.add_namespace(section_ns)
+api.add_namespace(ns4)
+api.add_namespace(ns5)

@@ -1,42 +1,19 @@
-from flask import request
-from flask_restplus import Resource, Namespace
+from flask import request, Response, jsonify
 import json
+from flask_restplus import Api, Resource, Namespace
 
 from app.api.dao.section_dao import SectionDAO
-from app.database.models.category import CategoryModel
+
 from app.api.models.video import *
 from app.api.validations.video import validate_video_creation_data
 from app.api.dao.video_dao import VideoDAO
 from app.api.dao.author_dao import AuthorDAO
 from datetime import datetime
-from app.api.mappers.video_mapper import map_to_dto
+from ..mappers.video_mapper import map_to_dto
 from app.api.middlewares.auth import token_required
 
-video_ns = Namespace("videos", description="Video Library")
+video_ns = Namespace("video", description="Video Library")
 add_models_to_namespace(video_ns)
-
-
-@video_ns.route("/add_category")
-class AddCategory(Resource):
-    @token_required
-    @video_ns.doc(params={"title": "Title of category"})
-    @video_ns.doc(
-        params={
-            "authorization": {"in": "header", "description": "An authorization token"}
-        }
-    )
-    def post(self):
-        args = request.args
-        title = args["title"]
-        existing_category = CategoryModel.find_by_title(title)
-        if existing_category:
-            return {"message": "Category already exists"}, 409
-
-        """ Saving title in capitalized letter. Which can prevent inconsistency in finding existing category title. """
-        category = CategoryModel(title.capitalize())
-        category.save_to_db()
-
-        return {"message": "Category added"}, 201
 
 
 @video_ns.route("/latest")

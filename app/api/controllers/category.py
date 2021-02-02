@@ -1,7 +1,7 @@
 from flask import request
 from flask_restplus import Namespace, Resource
 from app.database.models.category import CategoryModel
-from .middlewares.auth import token_required
+from app.api.middlewares.auth import token_required
 
 category_ns = Namespace("category", description="Category Details")
 

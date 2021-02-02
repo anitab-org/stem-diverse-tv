@@ -1,6 +1,6 @@
 from flask_restplus import Api
 
-from .video import video_ns as ns1
+from app.api.controllers.video import video_ns as ns1
 from .author import author_ns as ns2
 from .user import user_ns as ns3
 from .section import section_ns as ns4

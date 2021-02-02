@@ -50,6 +50,7 @@ class CategorySection(Resource):
             "authorization": {"in": "header", "description": "An authorization token"}
         }
     )
+    @token_required
     def get(self, id):
         category = CategoryDAO.find_category_by_id(id)
         if not category:

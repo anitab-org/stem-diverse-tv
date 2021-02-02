@@ -1,9 +1,10 @@
 """
 Mapping from model object to representation object"
 """
+from typing import List
 
 
-def map_to_response(section):
+def map_to_dto(section):
     """
     :param section: Section object
     :return: corresponding response made by mapping object to DTO
@@ -15,4 +16,19 @@ def map_to_response(section):
     return {
         "id": section.id,
         "title": section.title,
-    }, 201
+    }
+
+
+def map_to_dto_list(sections: List["SectionModel"]):
+    """
+    :param sections: list of Section objects
+    :return: corresponding response list made by mapping objects to DTOs
+    {
+    id: <section id>
+    title: "<section title>",
+    }
+    """
+    section_repr_list = []
+    for section in sections:
+        section_repr_list.append(map_to_dto(section))
+    return section_repr_list

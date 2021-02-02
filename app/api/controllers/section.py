@@ -6,9 +6,10 @@ from app.api.models.section import *
 from app.api.validations.section import validate_section_data
 from app.api.dao.section_dao import SectionDAO
 from app.api.dao.category_dao import CategoryDAO
-from app.api.mappers.section_mapper import map_to_response
-from app.utils.messages import SECTION_ALREADY_EXISTS
+from app.api.mappers.section_mapper import *
+from app.utils.messages import SECTION_ALREADY_EXISTS, RESOURCE_NOT_FOUND
 from app.api.middlewares.auth import token_required
+from .category import category_ns
 
 section_ns = Namespace("sections", description="Section Details")
 add_models_to_namespace(section_ns)
@@ -38,4 +39,20 @@ class Section(Resource):
             category.add_category_section(section)
         except SQLAlchemyError as e:
             return {"message": f"Data cannot be persisted. Original error: {e}"}, 500
-        return map_to_response(section)
+        return map_to_dto(section), 201
+
+
+@section_ns.route("/category/<int:id>")
+class CategorySection(Resource):
+    @token_required
+    @section_ns.doc(
+        params={
+            "authorization": {"in": "header", "description": "An authorization token"}
+        }
+    )
+    def get(self, id):
+        category = CategoryDAO.find_category_by_id(id)
+        if not category:
+            return RESOURCE_NOT_FOUND, 404
+        sections = SectionDAO.find_sections_by_category(category)
+        return map_to_dto_list(sections), 200

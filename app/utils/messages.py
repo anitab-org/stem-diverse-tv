@@ -12,3 +12,6 @@ TOKEN_MISSING = {"message": "ID token is missing"}
 
 # Section messages
 SECTION_ALREADY_EXISTS = {"message": "Section with the given title already exists!"}
+
+# for 404 response
+RESOURCE_NOT_FOUND = {"message": "resource with the given identifier was not found."}

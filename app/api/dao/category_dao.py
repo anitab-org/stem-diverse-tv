@@ -14,7 +14,21 @@ class CategoryDAO:
         return category
 
     @staticmethod
-    def find_category_by_title(title: str) -> "SectionModel":
+    def find_category_by_id(id: int) -> "CategoryModel":
+        """
+        Finds category by the given id (or None)
+        :param id: id of the category
+        :return: CategoryModel or None
+        """
+        return CategoryModel.query.get(id)
+
+    @staticmethod
+    def find_category_by_title(title: str) -> "CategoryModel":
+        """
+        Finds category by the given title
+        :param title: title of the category
+        :return: CategoryModel or None
+        """
         return CategoryModel.query.filter_by(title=title).first()
 
     @staticmethod

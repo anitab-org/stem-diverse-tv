@@ -24,6 +24,15 @@ class SectionDAO:
         return SectionModel.query.filter_by(title=title).first()
 
     @staticmethod
+    def find_sections_by_category(category_id: int) -> List["SectionModel"]:
+        """
+        Find sections for the given category.
+        :param category_id: id of the category
+        :return: List of SectionModel objects (or None)
+        """
+        return SectionModel.query.filter(SectionModel.category.contains(category_id))
+
+    @staticmethod
     def find_sections_by_ids(ids: List[int]) -> List["SectionModel"]:
         """
         Search sections by list of ids

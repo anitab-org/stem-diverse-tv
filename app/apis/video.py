@@ -1,10 +1,9 @@
-from flask import request, Response
+from flask import request, Response, jsonify
 import os
 import json
 import requests
 from flask_restplus import Api, Resource, Namespace, reqparse, marshal
 from app.apis.dao.section_dao import SectionDAO
-from app.database.models.category import CategoryModel
 from app.apis.models.video import *
 from app.apis.validations.video import validate_video_creation_data
 from app.apis.dao.video_dao import VideoDAO
@@ -14,31 +13,9 @@ from ..mappers.video_mapper import map_to_dto
 from .middlewares.auth import token_required
 from ..utils.extract_video_id import extract_video_id
 
+
 video_ns = Namespace("video", description="Video Library")
 add_models_to_namespace(video_ns)
-
-
-@video_ns.route("/add_category")
-class AddCategory(Resource):
-    @token_required
-    @video_ns.doc(params={"title": "Title of category"})
-    @video_ns.doc(
-        params={
-            "authorization": {"in": "header", "description": "An authorization token"}
-        }
-    )
-    def post(self):
-        args = request.args
-        title = args["title"]
-        existing_category = CategoryModel.find_by_title(title)
-        if existing_category:
-            return {"message": "Category already exists"}, 409
-
-        """ Saving title in capitalized letter. Which can prevent inconsistency in finding existing category title. """
-        category = CategoryModel(title.capitalize())
-        category.save_to_db()
-
-        return {"message": "Category added"}, 201
 
 
 @video_ns.route("/latest")
@@ -113,6 +90,7 @@ class Video(Resource):
                 data.get("free_to_reuse"),
                 data.get("authorized_to_reuse"),
             )
+
             VideoDAO.add_video_authors(video, authors)
             VideoDAO.add_video_sections(video, sections)
 
@@ -214,6 +192,7 @@ class AddYoutubeVideo(Resource):
                 video_data.get("free_to_reuse"),
                 video_data.get("authorized_to_reuse"),
             )
+
             VideoDAO.add_video_authors(video, authors)
             VideoDAO.add_video_sections(video, sections)
 

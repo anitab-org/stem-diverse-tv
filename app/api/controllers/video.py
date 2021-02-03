@@ -18,11 +18,6 @@ add_models_to_namespace(video_ns)
 
 @video_ns.route("/latest")
 class VideoLibrary(Resource):
-    @video_ns.doc(
-        params={
-            "authorization": {"in": "header", "description": "An authorization token"}
-        }
-    )
     def get(self):
         with open("./content/latests.json") as f:
             return json.loads(f.read())

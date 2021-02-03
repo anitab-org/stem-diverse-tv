@@ -18,7 +18,6 @@ add_models_to_namespace(video_ns)
 
 @video_ns.route("/latest")
 class VideoLibrary(Resource):
-    @token_required
     @video_ns.doc(
         params={
             "authorization": {"in": "header", "description": "An authorization token"}

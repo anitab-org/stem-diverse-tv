@@ -15,6 +15,15 @@ class SectionDAO:
         return section
 
     @staticmethod
+    def find_section_by_id(id: int) -> "SectionModel":
+        """
+        Find section that has the given id (if any).
+        :param id: id of the section
+        :return: SectionModel object (or None)
+        """
+        return SectionModel.query.get(id)
+
+    @staticmethod
     def find_section_by_title(title: str) -> "SectionModel":
         """
         Find section that has the given title (if any).
@@ -40,3 +49,7 @@ class SectionDAO:
         :return: List of SectionModel object which ids are provided
         """
         return SectionModel.query.filter(SectionModel.id.in_(ids))
+
+    @staticmethod
+    def update_section(section, **kwargs):
+        return section.update(**kwargs)

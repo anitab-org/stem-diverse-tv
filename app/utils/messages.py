@@ -15,3 +15,6 @@ SECTION_ALREADY_EXISTS = {"message": "Section with the given title already exist
 
 # for 404 response
 RESOURCE_NOT_FOUND = {"message": "resource with the given identifier was not found."}
+
+# BAD REQUEST messages
+SECTION_TITLE_NOT_UPDATED = {"message": "The new section title is the same as the old one."}

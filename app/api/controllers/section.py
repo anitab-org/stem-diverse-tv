@@ -3,13 +3,12 @@ from flask import request
 from sqlalchemy.exc import SQLAlchemyError
 
 from app.api.models.section import *
-from app.api.validations.section import validate_section_data
+from app.api.validations.section import *
 from app.api.dao.section_dao import SectionDAO
 from app.api.dao.category_dao import CategoryDAO
 from app.api.mappers.section_mapper import *
-from app.utils.messages import SECTION_ALREADY_EXISTS, RESOURCE_NOT_FOUND
+from app.utils.messages import SECTION_ALREADY_EXISTS, SECTION_TITLE_NOT_UPDATED, RESOURCE_NOT_FOUND
 from app.api.middlewares.auth import token_required
-from .category import category_ns
 
 section_ns = Namespace("sections", description="Section Details")
 add_models_to_namespace(section_ns)
@@ -40,6 +39,29 @@ class Section(Resource):
         except SQLAlchemyError as e:
             return {"message": f"Data cannot be persisted. Original error: {e}"}, 500
         return map_to_dto(section), 201
+
+
+@section_ns.route("/<int:id>")
+class UpdateSection(Resource):
+    @token_required
+    @section_ns.expect(update_section_model)
+    @section_ns.doc(
+        params={
+            "authorization": {"in": "header", "description": "An authorization token"}
+        }
+    )
+    def patch(self, id):
+        section = SectionDAO.find_section_by_id(id)
+        if not section:
+            return RESOURCE_NOT_FOUND, 404
+        data = request.json
+        validation_result = validate_updatable_section_data(data)
+        if validation_result is not None:
+            return validation_result
+        if data["title"] == section.title:
+            return SECTION_TITLE_NOT_UPDATED, 400
+        updated_section = SectionDAO.update_section(section, **data)
+        return map_to_dto(updated_section), 200
 
 
 @section_ns.route("/category/<int:id>")

@@ -41,6 +41,7 @@ class Section(Resource):
         return map_to_dto(section), 201
 
 
+
 @section_ns.route("/<int:id>")
 class UpdateSection(Resource):
     @token_required
@@ -66,12 +67,6 @@ class UpdateSection(Resource):
 
 @section_ns.route("/category/<int:id>")
 class CategorySection(Resource):
-    @token_required
-    @section_ns.doc(
-        params={
-            "authorization": {"in": "header", "description": "An authorization token"}
-        }
-    )
     def get(self, id):
         category = CategoryDAO.find_category_by_id(id)
         if not category:

@@ -36,7 +36,7 @@ class Category(Resource):
 
         return {"message": "Category added"}, 201
 
-
+      
 @category_ns.route("/all")
 class AllCategories(Resource):
     def get(self):

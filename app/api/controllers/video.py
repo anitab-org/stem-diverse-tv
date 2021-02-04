@@ -1,8 +1,6 @@
 from flask import request, Response, jsonify
-import os
 import json
-import requests
-from flask_restplus import Api, Resource, Namespace, reqparse, marshal
+from flask_restplus import Api, Resource, Namespace
 from app.api.dao.section_dao import SectionDAO
 from app.api.models.video import *
 from app.api.validations.video import validate_video_creation_data

@@ -28,7 +28,6 @@ class Category(Resource):
 
         return {"message": "Category added"}, 201
 
-
 @category_ns.route("/all")
 class AllCategories(Resource):
 
@@ -38,3 +37,4 @@ class AllCategories(Resource):
         for category in category_models:
             result.append(category.json())
         return {"categories": result}, 200
+

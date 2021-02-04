@@ -28,6 +28,15 @@ class SectionModel(db.Model):
         db.session.delete(self)
         db.session.commit()
 
+    def update(self, **kwargs) -> None:
+        """Updates section"""
+        for field, field_value in kwargs.items():
+            if hasattr(self, field):
+                setattr(self, field, field_value)
+        db.session.commit()
+        return self
+
+
     def add_video(self, video: "VideoModel") -> None:
         self.videos.append(video)
         db.session.add(self)

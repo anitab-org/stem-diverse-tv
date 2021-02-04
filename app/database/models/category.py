@@ -36,3 +36,6 @@ class CategoryModel(db.Model):
         """Deletes category from the database."""
         db.session.delete(self)
         db.session.commit()
+
+    def json(self):
+        return {"id": self.id, "title": self.title}

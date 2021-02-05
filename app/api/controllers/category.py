@@ -1,10 +1,13 @@
 from flask import request
 from flask_restplus import Namespace, Resource
+from app.api.dao.section_dao import SectionDAO
+from app.api.dao.category_dao import CategoryDAO
 from app.database.models.category import CategoryModel
 from app.api.models.category import *
 from app.api.dao.category_dao import CategoryDAO
 from app.api.mappers.category_mapper import map_to_dto
 from app.api.middlewares.auth import token_required
+from app.api.mappers.section_mapper import *
 from app.utils.messages import (
     RESOURCE_NOT_FOUND,
     CATEGORY_TITLE_NOT_UPDATED,
@@ -36,6 +39,16 @@ class Category(Resource):
 
         return {"message": "Category added"}, 201
 
+
+@category_ns.route("/<int:id>/section")
+class CategorySection(Resource):
+    def get(self, id):
+        category = CategoryDAO.find_category_by_id(id)
+        if not category:
+            return RESOURCE_NOT_FOUND, 404
+        sections = SectionDAO.find_sections_by_category(category)
+        return map_to_dto_list(sections), 200
+      
       
 @category_ns.route("/all")
 class AllCategories(Resource):

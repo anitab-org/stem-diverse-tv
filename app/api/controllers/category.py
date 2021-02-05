@@ -35,12 +35,7 @@ class Category(Resource):
 
 @category_ns.route("/<int:id>/section")
 class CategorySection(Resource):
-    @token_required
-    @category_ns.doc(
-        params={
-            "authorization": {"in": "header", "description": "An authorization token"}
-        }
-    )
+
     def get(self, id):
         category = CategoryDAO.find_category_by_id(id)
         if not category:

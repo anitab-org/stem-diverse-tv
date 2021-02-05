@@ -29,7 +29,5 @@ def map_to_dto_list(authors: List["AuthorModel"]):
     profile_image: "<image link>"
     }
     """
-    author_repr_list = []
-    for author in authors:
-        author_repr_list.append(map_to_dto(author))
+    author_repr_list = list(map(lambda author: map_to_dto(author), authors))
     return author_repr_list

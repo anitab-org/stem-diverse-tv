@@ -16,7 +16,5 @@ add_section_model = Model(
 
 update_section_model = Model(
     "Fields needed for updating an existing section",
-    {
-        "title": fields.String(required=True, description="section title")
-    },
+    {"title": fields.String(required=True, description="section title")},
 )

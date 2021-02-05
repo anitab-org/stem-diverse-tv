@@ -27,6 +27,12 @@ class CategoryModel(db.Model):
         db.session.add(self)
         db.session.commit()
 
+    def add_sections(self, sections) -> None:
+        """Add category section instance"""
+        self.section.extend(sections)
+        db.session.add(self)
+        db.session.commit()
+
     def add_category_section(self, section) -> None:
         self.section.append(section)
         db.session.add(self)

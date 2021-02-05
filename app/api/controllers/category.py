@@ -1,13 +1,18 @@
 from flask import request
 from flask_restplus import Namespace, Resource
-
-from app.api.models.category import *
 from app.database.models.category import CategoryModel
+from app.api.models.category import *
+from app.api.mappers.category_mapper import map_to_dto
+from app.api.mappers.section_mapper import *
 from app.api.middlewares.auth import token_required
 from app.utils.messages import RESOURCE_NOT_FOUND
 from ..dao.category_dao import CategoryDAO
 from ..dao.section_dao import SectionDAO
 from ..validations.category import validate_category_sections_data
+from app.utils.messages import (
+    RESOURCE_NOT_FOUND,
+    CATEGORY_TITLE_NOT_UPDATED,
+)
 
 category_ns = Namespace("categories", description="Category Details")
 add_models_to_namespace(category_ns)
@@ -35,14 +40,12 @@ class Category(Resource):
 
         return {"message": "Category added"}, 201
 
-
+      
 @category_ns.route("/all")
 class AllCategories(Resource):
     def get(self):
         category_models = CategoryModel.query.all()
-        result = list()
-        for category in category_models:
-            result.append(category.json())
+        result = list(map(lambda category: category.json(), category_models))
         return {"categories": result}, 200
 
 
@@ -50,11 +53,6 @@ class AllCategories(Resource):
 class CategorySection(Resource):
     @token_required
     @category_ns.expect(add_category_sections)
-    @category_ns.doc(
-        params={
-            "authorization": {"in": "header", "description": "An authorization token"}
-        }
-    )
     def post(self, id):
         category = CategoryDAO.find_category_by_id(id)
         if not category:
@@ -75,3 +73,27 @@ class CategorySection(Resource):
         if note:
             response = {"message": note}, 201
         return response
+@category_ns.route("/<int:id>")
+class UpdateCategory(Resource):
+    @token_required
+    @category_ns.expect(update_category_model)
+    @category_ns.doc(
+        params={
+            "authorization": {"in": "header", "description": "An authorization token"}
+        }
+    )
+    def patch(self, id):
+        payload = request.json
+        category = CategoryDAO.find_category_by_id(id)
+
+        if "title" not in payload:
+            return {"message": "Title of the category must be provided."}, 400
+
+        if not category:
+            return RESOURCE_NOT_FOUND, 404
+
+        if payload["title"] == category.title:
+            return CATEGORY_TITLE_NOT_UPDATED, 400
+
+        updated_category = CategoryDAO.update_category(category, payload["title"])
+        return map_to_dto(updated_category), 200

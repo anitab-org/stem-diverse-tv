@@ -20,3 +20,7 @@ RESOURCE_NOT_FOUND = {"message": "resource with the given identifier was not fou
 SECTION_TITLE_NOT_UPDATED = {
     "message": "The new section title is the same as the old one."
 }
+CATEGORY_TITLE_NOT_UPDATED = {
+    "message": "The new category title is the same as the old one."
+}
+

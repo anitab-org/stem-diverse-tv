@@ -37,3 +37,9 @@ class CategoryDAO:
         if category is None:
             category = CategoryDAO.create_category(title)
         return category
+
+    @staticmethod
+    def update_category(category, title):
+        category.title = title
+        category.save_to_db()
+        return category

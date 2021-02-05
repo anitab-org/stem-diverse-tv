@@ -47,3 +47,14 @@ class CategorySection(Resource):
             return RESOURCE_NOT_FOUND, 404
         sections = SectionDAO.find_sections_by_category(category)
         return map_to_dto_list(sections), 200
+
+      
+@category_ns.route("/all")
+class AllCategories(Resource):
+
+    def get(self):
+        category_models = CategoryModel.query.all()
+        result = list()
+        for category in category_models:
+            result.append(category.json())
+        return {"categories": result}, 200

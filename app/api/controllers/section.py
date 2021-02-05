@@ -41,6 +41,7 @@ class Section(Resource):
         return map_to_dto(section), 201
 
 
+
 @section_ns.route("/<int:id>")
 class UpdateSection(Resource):
     @token_required

@@ -65,12 +65,12 @@ class CategorySection(Resource):
             return validation_result, 400
         section_ids = data["sections"]
         sections = SectionDAO.find_sections_by_ids(section_ids)
-        note = None
+        note = ""
         if sections.count() != len(section_ids):
             note = "Not all sections are valid/existing!"
         all_sections_added = CategoryDAO.add_category_sections(category, sections)
         if not all_sections_added:
-            note = "Duplicate category sections detected are they were not added!"
+            note += " Duplicate category sections detected are they were not added!"
         response = {"message": "Category sections added successfully."}, 201
         if note:
             response = {"message": note}, 201

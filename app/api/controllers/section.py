@@ -62,19 +62,3 @@ class UpdateSection(Resource):
             return SECTION_TITLE_NOT_UPDATED, 400
         updated_section = SectionDAO.update_section(section, **data)
         return map_to_dto(updated_section), 200
-
-
-@section_ns.route("/category/<int:id>")
-class CategorySection(Resource):
-    @token_required
-    @section_ns.doc(
-        params={
-            "authorization": {"in": "header", "description": "An authorization token"}
-        }
-    )
-    def get(self, id):
-        category = CategoryDAO.find_category_by_id(id)
-        if not category:
-            return RESOURCE_NOT_FOUND, 404
-        sections = SectionDAO.find_sections_by_category(category)
-        return map_to_dto_list(sections), 200

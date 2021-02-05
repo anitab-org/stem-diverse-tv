@@ -28,7 +28,5 @@ def map_to_dto_list(sections: List["SectionModel"]):
     title: "<section title>",
     }
     """
-    section_repr_list = []
-    for section in sections:
-        section_repr_list.append(map_to_dto(section))
+    section_repr_list = list(map(lambda section: map_to_dto(section), sections))
     return section_repr_list

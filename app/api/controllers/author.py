@@ -49,9 +49,7 @@ class AuthorList(Resource):
     )
     def get(self):
         authors = AuthorModel.query.all()
-        all_authors = list()
-        for author in authors:
-            all_authors.append(author.json())
+        all_authors = list(map(lambda author: author.json(), authors))
         return {"authors": all_authors}, 200
 
 

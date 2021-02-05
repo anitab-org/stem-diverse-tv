@@ -30,11 +30,8 @@ class Category(Resource):
 
 @category_ns.route("/all")
 class AllCategories(Resource):
-
     def get(self):
         category_models = CategoryModel.query.all()
-        result = list()
-        for category in category_models:
-            result.append(category.json())
+        result = list(map(lambda category: category.json(), category_models))
         return {"categories": result}, 200
 

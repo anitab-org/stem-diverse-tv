@@ -15,7 +15,6 @@ class SectionDAO:
         return section
 
     @staticmethod
-
     def find_section_by_id(id: int) -> "SectionModel":
         """
         Find section that has the given id (if any).
@@ -54,4 +53,3 @@ class SectionDAO:
     @staticmethod
     def update_section(section, **kwargs):
         return section.update(**kwargs)
-

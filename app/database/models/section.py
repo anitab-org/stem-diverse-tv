@@ -36,7 +36,6 @@ class SectionModel(db.Model):
         db.session.commit()
         return self
 
-
     def add_video(self, video: "VideoModel") -> None:
         self.videos.append(video)
         db.session.add(self)

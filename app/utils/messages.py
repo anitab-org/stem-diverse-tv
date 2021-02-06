@@ -23,3 +23,4 @@ SECTION_TITLE_NOT_UPDATED = {
 CATEGORY_TITLE_NOT_UPDATED = {
     "message": "The new category title is the same as the old one."
 }
+

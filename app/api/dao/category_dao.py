@@ -1,4 +1,6 @@
 from app.database.models.category import CategoryModel
+from flask_sqlalchemy import BaseQuery
+from typing import List
 
 
 class CategoryDAO:
@@ -38,6 +40,15 @@ class CategoryDAO:
             category = CategoryDAO.create_category(title)
         return category
 
+    @staticmethod
+    def add_category_sections(category, sections: BaseQuery) -> bool:
+        non_existing_category_sections = []
+        for section in sections:
+            if section not in category.section:
+                non_existing_category_sections.append(section)
+        category.add_sections(non_existing_category_sections)
+        return len(non_existing_category_sections) == sections.count()
+      
     @staticmethod
     def update_category(category, title):
         category.title = title

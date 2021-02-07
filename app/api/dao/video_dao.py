@@ -46,6 +46,15 @@ class VideoDAO:
         return video
 
     @staticmethod
+    def find_video_by_id(id: int) -> "VideoModel":
+        """
+        Finds video with the given id.
+        :param id: id of the video
+        :return: VideoModel or None
+        """
+        return VideoModel.query.get(id)
+
+    @staticmethod
     def find_video_by_url(url: str) -> "VideoModel":
         return VideoModel.query.filter_by(url=url).first()
 
@@ -67,8 +76,13 @@ class VideoDAO:
 
     # sections
     @staticmethod
-    def add_video_sections(video: "VideoModel", sections: List["SectionModel"]) -> None:
-        video.add_sections(sections)
+    def add_video_sections(video: "VideoModel", sections: List["SectionModel"]) -> bool:
+        non_existing_video_sections = []
+        for section in sections:
+            if section not in video.sections:
+                non_existing_video_sections.append(section)
+        video.add_sections(non_existing_video_sections)
+        return len(non_existing_video_sections) == sections.count()
 
     @staticmethod
     def replace_video_sections(

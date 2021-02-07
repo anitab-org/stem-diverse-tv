@@ -48,7 +48,7 @@ class CategoryDAO:
                 non_existing_category_sections.append(section)
         category.add_sections(non_existing_category_sections)
         return len(non_existing_category_sections) == sections.count()
-      
+
     @staticmethod
     def update_category(category, title):
         category.title = title

@@ -1,17 +1,22 @@
 from flask import request, Response, jsonify
 import json
+import requests
 from flask_restplus import Api, Resource, Namespace
 from app.api.dao.section_dao import SectionDAO
 from app.api.models.video import *
-from app.api.validations.video import validate_video_creation_data
+from app.api.validations.video import (
+    validate_video_creation_data,
+    validate_video_sections_data,
+)
 from app.api.dao.video_dao import VideoDAO
 from app.api.dao.author_dao import AuthorDAO
 from datetime import datetime
 from ..mappers.video_mapper import map_to_dto
 from app.api.middlewares.auth import token_required
 from app.utils.extract_video_id import extract_video_id
+from app.utils.messages import RESOURCE_NOT_FOUND
 
-video_ns = Namespace("video", description="Video Library")
+video_ns = Namespace("videos", description="Video Library")
 add_models_to_namespace(video_ns)
 
 
@@ -181,3 +186,34 @@ class AddYoutubeVideo(Resource):
 
         response["video"] = map_to_dto(video)
         return response, 200
+
+
+@video_ns.route("/<int:id>/sections")
+class VideoSections(Resource):
+    @token_required
+    @video_ns.expect(add_video_sections)
+    @video_ns.doc(
+        params={
+            "authorization": {"in": "header", "description": "An authorization token"}
+        }
+    )
+    def post(self, id):
+        video = VideoDAO.find_video_by_id(id)
+        if not video:
+            return RESOURCE_NOT_FOUND, 404
+        data = request.json
+        validation_result = validate_video_sections_data(data)
+        if validation_result:
+            return validation_result, 400
+        section_ids = data["sections"]
+        sections = SectionDAO.find_sections_by_ids(section_ids)
+        note = ""
+        if sections.count() != len(section_ids):
+            note = "Not all sections are valid/existing!"
+        all_sections_added = VideoDAO.add_video_sections(video, sections)
+        if not all_sections_added:
+            note += " Duplicate video sections detected and they were not added!"
+        response = {"message": "Video sections added successfully."}, 201
+        if note:
+            response = {"message": note}, 201
+        return response

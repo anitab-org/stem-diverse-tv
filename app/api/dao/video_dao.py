@@ -77,10 +77,9 @@ class VideoDAO:
     # sections
     @staticmethod
     def add_video_sections(video: "VideoModel", sections: List["SectionModel"]) -> bool:
-        non_existing_video_sections = []
-        for section in sections:
-            if section not in video.sections:
-                non_existing_video_sections.append(section)
+        non_existing_video_sections = list(
+            filter(lambda section: section not in video.sections, sections)
+        )
         video.add_sections(non_existing_video_sections)
         return len(non_existing_video_sections) == sections.count()
 

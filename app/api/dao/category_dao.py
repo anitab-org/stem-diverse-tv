@@ -42,10 +42,9 @@ class CategoryDAO:
 
     @staticmethod
     def add_category_sections(category, sections: BaseQuery) -> bool:
-        non_existing_category_sections = []
-        for section in sections:
-            if section not in category.section:
-                non_existing_category_sections.append(section)
+        non_existing_category_sections = list(
+            filter(lambda section: section not in category.section, sections)
+        )
         category.add_sections(non_existing_category_sections)
         return len(non_existing_category_sections) == sections.count()
 

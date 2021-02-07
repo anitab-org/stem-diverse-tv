@@ -11,8 +11,9 @@ add_category_sections = Model(
     {
         "sections": fields.List(fields.Integer(), description="list of section ids"),
     },
+)
 
-  update_category_model = Model(
+update_category_model = Model(
     "Fields required for updating a category",
     {"title": fields.String(required=True, description="category title")}
 )

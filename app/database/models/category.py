@@ -13,6 +13,8 @@ class CategoryModel(db.Model):
         "SectionModel",
         secondary=category_section,
         backref=db.backref("category", lazy="dynamic"),
+        cascade="all, delete",
+        passive_deletes=True
     )
 
     def __init__(self, title):

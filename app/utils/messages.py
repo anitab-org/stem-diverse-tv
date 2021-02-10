@@ -26,6 +26,8 @@ CATEGORY_TITLE_NOT_UPDATED = {
     "message": "The new category title is the same as the old one."
 }
 
-
 # BAD REQUEST structure
 SECTIONS_NOT_PROVIDED = {"message": "List of the sections must be provided."}
+
+# DELETED
+SECTION_SUCCESSFULLY_DELETED = {"message": "Section deleted successfully."}

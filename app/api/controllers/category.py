@@ -104,3 +104,17 @@ class UpdateCategory(Resource):
 
         updated_category = CategoryDAO.update_category(category, payload["title"])
         return map_to_dto(updated_category), 200
+
+    @token_required
+    @category_ns.doc(
+        params={
+            "authorization": {"in": "header", "description": "An authorization token"}
+        }
+    )
+    def delete(self, id):
+        category = CategoryDAO.find_category_by_id(id)
+        if not category:
+            return RESOURCE_NOT_FOUND, 404
+
+        CategoryDAO.delete_category(category)
+        return {"message": "Category deleted successfully."}

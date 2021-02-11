@@ -53,3 +53,7 @@ class CategoryDAO:
         category.title = title
         category.save_to_db()
         return category
+
+    @staticmethod
+    def delete_category(category):
+        category.delete_from_db()

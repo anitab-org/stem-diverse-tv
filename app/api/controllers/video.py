@@ -1,20 +1,25 @@
-from flask import request, Response, jsonify
 import json
+import os
+from datetime import datetime
+
 import requests
-from flask_restplus import Api, Resource, Namespace
+import youtube_dl
+from app.api.dao.author_dao import AuthorDAO
 from app.api.dao.section_dao import SectionDAO
+from app.api.dao.video_dao import VideoDAO
+from app.api.middlewares.auth import token_required
 from app.api.models.video import *
 from app.api.validations.video import (
     validate_video_creation_data,
     validate_video_sections_data,
 )
-from app.api.dao.video_dao import VideoDAO
-from app.api.dao.author_dao import AuthorDAO
-from datetime import datetime
-from ..mappers.video_mapper import map_to_dto
-from app.api.middlewares.auth import token_required
 from app.utils.extract_video_id import extract_video_id
+from app.utils.youtube_dl import *
 from app.utils.messages import RESOURCE_NOT_FOUND
+from flask import Response, jsonify, request
+from flask_restplus import Api, Namespace, Resource
+
+from ..mappers.video_mapper import map_to_dto
 
 video_ns = Namespace("videos", description="Video Library")
 add_models_to_namespace(video_ns)
@@ -217,3 +222,22 @@ class VideoSections(Resource):
         if note:
             response = {"message": note}, 201
         return response
+
+
+@video_ns.route("/stream/<string:videoId>/<int:format>")
+class GetVideoStream(Resource):
+    @token_required
+    @video_ns.doc(
+        params={
+            "authorization": {"in": "header", "description": "An authorization token"}
+        }
+    )
+    def get(self, videoId, format):
+        try:
+            info = youtube_dl_extract_info(videoId)
+        except youtube_dl.utils.DownloadError as e:
+            return {"message": e.args[0]}
+
+        stream_info = youtube_dl_extract_format(info, format)
+
+        return {"stream": stream_info}, 200

@@ -231,7 +231,6 @@ class GetVideoStream(Resource):
         params={
             "authorization": {"in": "header", "description": "An authorization token"}
         }
-    )
     def get(self, videoId, format):
         try:
             info = youtube_dl_extract_info(videoId)

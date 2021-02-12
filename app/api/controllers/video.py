@@ -226,7 +226,6 @@ class VideoSections(Resource):
 
 @video_ns.route("/stream/<string:videoId>/<int:format>")
 class GetVideoStream(Resource):
-    @video_ns.doc(
             "authorization": {"in": "header", "description": "An authorization token"}
         }
     def get(self, videoId, format):

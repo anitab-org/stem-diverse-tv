@@ -9,9 +9,7 @@ REQUIRED_FIELDS_MAP = {
     "date_published": "date of publishing",
     "source": "source",
     "channel": "channel",
-    "duration": "duration",
-    "category_sections": "category sections",
-    "authors": "authors",
+    "duration": "duration"
 }
 
 

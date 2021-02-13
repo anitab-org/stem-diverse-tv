@@ -10,6 +10,8 @@ from datetime import datetime
 from ..mappers.video_mapper import map_to_dto
 from app.api.middlewares.auth import token_required
 from app.utils.extract_video_id import extract_video_id
+import requests
+import os
 
 video_ns = Namespace("video", description="Video Library")
 add_models_to_namespace(video_ns)
@@ -125,8 +127,6 @@ class AddYoutubeVideo(Resource):
             "archived": False,
             "free_to_reuse": video["contentDetails"]["licensedContent"],
             "authorized_to_reuse": video["contentDetails"]["licensedContent"],
-            "category_sections": payload["sections"][0]["id"],
-            "authors": list(payload["authors"]),
         }
 
         validation_result = validate_video_creation_data(video_data)
@@ -136,31 +136,11 @@ class AddYoutubeVideo(Resource):
         url = video_data["url"]
         existing_video = VideoDAO.find_video_by_url(url)
 
-        # find authors from the list
-        authors = AuthorDAO.find_authors_by_ids(video_data["authors"])
-        if authors.count() != len(video_data["authors"]):
-            response["notes"].append(
-                "Some of the authors are not valid or they do not exist."
-            )
-
-        # find sections from the list
-        sections = SectionDAO.find_sections_by_ids(video_data["category_sections"])
-        if sections.count() != len(video_data["category_sections"]):
-            response["notes"].append(
-                "Some of the sections are not valid or they do not exist."
-            )
-
-        # remove association fields
-        video_data.pop("authors")
-        video_data.pop("category_sections")
-
         if existing_video:
             video_data["date_published"] = datetime.strptime(
                 video_data["date_published"], "%Y-%m-%d"
             )
             existing_video.update(video_data)
-            VideoDAO.replace_video_authors(existing_video, authors)
-            VideoDAO.replace_video_sections(existing_video, sections)
             video = existing_video
         else:
             video = VideoDAO.create_video(
@@ -175,9 +155,6 @@ class AddYoutubeVideo(Resource):
                 video_data.get("free_to_reuse"),
                 video_data.get("authorized_to_reuse"),
             )
-
-            VideoDAO.add_video_authors(video, authors)
-            VideoDAO.add_video_sections(video, sections)
 
         response["video"] = map_to_dto(video)
         return response, 200

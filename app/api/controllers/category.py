@@ -40,7 +40,7 @@ class Category(Resource):
 
         return {"message": "Category added"}, 201
 
-      
+
 @category_ns.route("/all")
 class AllCategories(Resource):
     def get(self):
@@ -53,6 +53,11 @@ class AllCategories(Resource):
 class CategorySection(Resource):
     @token_required
     @category_ns.expect(add_category_sections)
+    @category_ns.doc(
+        params={
+            "authorization": {"in": "header", "description": "An authorization token"}
+        }
+    )
     def post(self, id):
         category = CategoryDAO.find_category_by_id(id)
         if not category:
@@ -68,11 +73,13 @@ class CategorySection(Resource):
             note = "Not all sections are valid/existing!"
         all_sections_added = CategoryDAO.add_category_sections(category, sections)
         if not all_sections_added:
-            note += " Duplicate category sections detected are they were not added!"
+            note += " Duplicate category sections detected and they were not added!"
         response = {"message": "Category sections added successfully."}, 201
         if note:
             response = {"message": note}, 201
         return response
+
+
 @category_ns.route("/<int:id>")
 class UpdateCategory(Resource):
     @token_required
@@ -97,3 +104,17 @@ class UpdateCategory(Resource):
 
         updated_category = CategoryDAO.update_category(category, payload["title"])
         return map_to_dto(updated_category), 200
+
+    @token_required
+    @category_ns.doc(
+        params={
+            "authorization": {"in": "header", "description": "An authorization token"}
+        }
+    )
+    def delete(self, id):
+        category = CategoryDAO.find_category_by_id(id)
+        if not category:
+            return RESOURCE_NOT_FOUND, 404
+
+        CategoryDAO.delete_category(category)
+        return {"message": "Category deleted successfully."}

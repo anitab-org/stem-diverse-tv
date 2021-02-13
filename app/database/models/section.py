@@ -12,7 +12,7 @@ class SectionModel(db.Model):
     videos = db.relationship(
         "VideoModel",
         secondary=section_video,
-        backref=db.backref("sections", lazy="dynamic"),
+        backref=db.backref("sections", lazy="dynamic", cascade="all, delete"),
     )
 
     def init(self, title):

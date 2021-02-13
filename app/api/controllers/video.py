@@ -1,19 +1,27 @@
-from flask import request, Response, jsonify
 import json
-from flask_restplus import Api, Resource, Namespace
-from app.api.dao.section_dao import SectionDAO
-from app.api.models.video import *
-from app.api.validations.video import validate_video_creation_data
-from app.api.dao.video_dao import VideoDAO
-from app.api.dao.author_dao import AuthorDAO
-from datetime import datetime
-from ..mappers.video_mapper import map_to_dto
-from app.api.middlewares.auth import token_required
-from app.utils.extract_video_id import extract_video_id
-import requests
 import os
+from datetime import datetime
 
-video_ns = Namespace("video", description="Video Library")
+import requests
+import youtube_dl
+from app.api.dao.author_dao import AuthorDAO
+from app.api.dao.section_dao import SectionDAO
+from app.api.dao.video_dao import VideoDAO
+from app.api.middlewares.auth import token_required
+from app.api.models.video import *
+from app.api.validations.video import (
+    validate_video_creation_data,
+    validate_video_sections_data,
+)
+from app.utils.extract_video_id import extract_video_id
+from app.utils.youtube_dl import *
+from app.utils.messages import RESOURCE_NOT_FOUND
+from flask import Response, jsonify, request
+from flask_restplus import Api, Namespace, Resource
+
+from ..mappers.video_mapper import map_to_dto
+
+video_ns = Namespace("videos", description="Video Library")
 add_models_to_namespace(video_ns)
 
 
@@ -158,3 +166,47 @@ class AddYoutubeVideo(Resource):
 
         response["video"] = map_to_dto(video)
         return response, 200
+
+
+@video_ns.route("/<int:id>/sections")
+class VideoSections(Resource):
+    @token_required
+    @video_ns.expect(add_video_sections)
+    @video_ns.doc(
+        params={
+            "authorization": {"in": "header", "description": "An authorization token"}
+        }
+    )
+    def post(self, id):
+        video = VideoDAO.find_video_by_id(id)
+        if not video:
+            return RESOURCE_NOT_FOUND, 404
+        data = request.json
+        validation_result = validate_video_sections_data(data)
+        if validation_result:
+            return validation_result, 400
+        section_ids = data["sections"]
+        sections = SectionDAO.find_sections_by_ids(section_ids)
+        note = ""
+        if sections.count() != len(section_ids):
+            note = "Not all sections are valid/existing!"
+        all_sections_added = VideoDAO.add_video_sections(video, sections)
+        if not all_sections_added:
+            note += " Duplicate video sections detected and they were not added!"
+        response = {"message": "Video sections added successfully."}, 201
+        if note:
+            response = {"message": note}, 201
+        return response
+
+
+@video_ns.route("/stream/<string:videoId>/<int:format>")
+class GetVideoStream(Resource):
+    def get(self, videoId, format):
+        try:
+            info = youtube_dl_extract_info(videoId)
+        except youtube_dl.utils.DownloadError as e:
+            return {"message": e.args[0]}
+
+        stream_info = youtube_dl_extract_format(info, format)
+
+        return {"stream": stream_info}, 200

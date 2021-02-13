@@ -11,6 +11,7 @@ from app.utils.messages import (
     SECTION_ALREADY_EXISTS,
     SECTION_TITLE_NOT_UPDATED,
     RESOURCE_NOT_FOUND,
+    SECTION_SUCCESSFULLY_DELETED,
 )
 from app.api.middlewares.auth import token_required
 
@@ -66,3 +67,15 @@ class UpdateSection(Resource):
             return SECTION_TITLE_NOT_UPDATED, 400
         updated_section = SectionDAO.update_section(section, **data)
         return map_to_dto(updated_section), 200
+
+    @token_required
+    @section_ns.doc(
+        params={
+            "authorization": {"in": "header", "description": "An authorization token"}
+        }
+    )
+    def delete(self, id):
+        result = SectionDAO.delete_section_by_id(id)
+        if not result:
+            return RESOURCE_NOT_FOUND, 404
+        return SECTION_SUCCESSFULLY_DELETED, 200

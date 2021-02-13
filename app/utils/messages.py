@@ -14,7 +14,9 @@ TOKEN_MISSING = {"message": "ID token is missing"}
 SECTION_ALREADY_EXISTS = {"message": "Section with the given title already exists!"}
 
 # for 404 response
-RESOURCE_NOT_FOUND = {"message": "resource with the given identifier was not found."}
+RESOURCE_NOT_FOUND = {
+    "message": "The resource with the given identifier was not found."
+}
 
 # BAD REQUEST messages
 SECTION_TITLE_NOT_UPDATED = {
@@ -24,3 +26,8 @@ CATEGORY_TITLE_NOT_UPDATED = {
     "message": "The new category title is the same as the old one."
 }
 
+# BAD REQUEST structure
+SECTIONS_NOT_PROVIDED = {"message": "List of the sections must be provided."}
+
+# DELETED
+SECTION_SUCCESSFULLY_DELETED = {"message": "Section deleted successfully."}

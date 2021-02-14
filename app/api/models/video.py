@@ -4,7 +4,6 @@ from flask_restplus import Model, fields
 def add_models_to_namespace(api_namespace):
     api_namespace.models[add_video_model.name] = add_video_model
     api_namespace.models[add_yt_video_model.name] = add_yt_video_model
-    api_namespace.models[yt_video_section_field.name] = yt_video_section_field
     api_namespace.models[add_video_sections.name] = add_video_sections
 
 

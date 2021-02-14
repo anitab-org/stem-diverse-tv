@@ -79,12 +79,6 @@ class CategorySection(Resource):
             response = {"message": note}, 201
         return response
 
-    @token_required
-    @category_ns.doc(
-        params={
-            "authorization": {"in": "header", "description": "An authorization token"}
-        }
-    )
     def get(self, id):
         category = CategoryDAO.find_category_by_id(id)
         if not category:

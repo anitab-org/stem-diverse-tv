@@ -79,6 +79,13 @@ class CategorySection(Resource):
             response = {"message": note}, 201
         return response
 
+    def get(self, id):
+        category = CategoryDAO.find_category_by_id(id)
+        if not category:
+            return RESOURCE_NOT_FOUND, 404
+        sections = SectionDAO.find_sections_by_category(category)
+        return map_to_dto_list(sections), 200
+
 
 @category_ns.route("/<int:id>")
 class UpdateCategory(Resource):

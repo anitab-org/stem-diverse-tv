@@ -31,3 +31,9 @@ SECTIONS_NOT_PROVIDED = {"message": "List of the sections must be provided."}
 
 # DELETED
 SECTION_SUCCESSFULLY_DELETED = {"message": "Section deleted successfully."}
+
+
+# BAD URL params
+SECTION_ID_NOT_PROVIDED = {
+    "message": "Feed cannot be formed. Section identifier was not provided!"
+}

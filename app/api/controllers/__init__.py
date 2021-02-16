@@ -5,7 +5,7 @@ from .author import author_ns as ns2
 from .user import user_ns as ns3
 from .section import section_ns as ns4
 from .category import category_ns as ns5
-
+from .feed import feed_ns
 
 api = Api(
     title="STEM Diverse TV",
@@ -18,3 +18,4 @@ api.add_namespace(ns2)
 api.add_namespace(ns3)
 api.add_namespace(ns4)
 api.add_namespace(ns5)
+api.add_namespace(feed_ns)

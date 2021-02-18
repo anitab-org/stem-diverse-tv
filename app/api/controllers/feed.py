@@ -38,8 +38,8 @@ class Feed(Resource):
                 stream_data = youtube_dl_extract_format(
                     video_info, Feed.DEFAULT_VIDEO_FORMAT
                 )
-                if "message" in stream_data:
+                if "message" in stream_data or len(stream_data) == 0:
                     return stream_data, 500
-                video_dto = map_to_feed_dto(video, stream_data)
+                video_dto = map_to_feed_dto(video, stream_data[0])
                 videos_data.append(video_dto)
         return feed_mapper.map_to_dto(section, videos_data), 200

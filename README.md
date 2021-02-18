@@ -25,9 +25,9 @@ pip3 install -r requirements.txt
 ```
 
 - Please download Firebase Admin SDK service json file from Firebase Console, You can download the file by following below steps:
-    1. Go to `Project Settings/Service accounts`
-    1. Click on `Generate New Primary Key`
-    1. Put file in project root directory and rename it to `google-credentials.json`
+    -  Go to `Project Settings/Service accounts`
+    -  Click on `Generate New Primary Key`
+    -  Place the file in project's root directory and rename it to `google-credentials.json`
 - Make .env file from given .env.template file and add details like API_KEY, which is a web api key from firebase. Find your project's web api key in project's overview tab on firebase console.
 
 After this, execute:

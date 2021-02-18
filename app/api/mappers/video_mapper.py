@@ -31,7 +31,7 @@ def map_to_feed_dto(video: "VideoModel", stream_url: str):
             video.date_published, "%Y-%m-%d %H:%M:%S"
         ),  # we don't have this field, use date_published
         "content": {"src": stream_url, "type": "video/hls"},
-        "link": None,  # TEST
+        "link": {"type": "link", "href": ""},  # TEST
         "media_group": [
             {
                 "type": "image",

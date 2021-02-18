@@ -117,7 +117,6 @@ class AddYoutubeVideo(Resource):
         )
         video_json = response.json()
         response = {"notes": []}
-
         if len(video_json["items"]) == 0:
             response["notes"].append("No video found, please check the url.")
             return response, 404

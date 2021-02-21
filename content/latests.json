@@ -31,6 +31,34 @@
         }
       ],
       "extensions": { "section": "None" }
+    },
+    {
+      "author": { "name": "Channel 9" },
+      "type": { "value": "video" },
+      "id": "NSBT-0001",
+      "title": "Why should I make accessible apps? | One Dev Question",
+      "summary": "This series on #diversity and #inclusion in software development starts with a spotlight on @DennieDeclercq - a Belgian developer on the autism spectrum-who advocates for making software more accessible to all.",
+      "published": "2005-04-06T20:25:05-08:00",
+      "updated": "2005-04-06T20:25:05-08:00",
+      "content": {
+        "src": "https://sec.ch9.ms/ch9/69b5/25aff2f7-ad90-43fe-82fc-5097416769b5/Dennie1_high.mp4",
+        "type": "video/hls"
+      },
+      "link": { "type": "link", "href": "" },
+      "media_group": [
+        {
+          "type": "image",
+          "media_item": [
+            {
+              "key": "image_base",
+              "src": "https://sec.ch9.ms/ch9/69b5/25aff2f7-ad90-43fe-82fc-5097416769b5/Dennie1_960.jpg",
+              "type": "extern_image"
+            }
+          ]
+        }
+      ],
+      "extensions": { "section": "None" }
+      
     }
   ]
 }

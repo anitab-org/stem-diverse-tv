@@ -4,6 +4,7 @@ import json
 from typing import Dict
 from firebase_admin import auth
 from os import environ
+from app.utils.email_utils import send_email_verification_message
 
 
 class UserDAO:
@@ -32,7 +33,8 @@ class UserDAO:
             link = auth.generate_email_verification_link(
                 email, action_code_settings=None
             )
-            """ To implement, send verification link usingg # send_verification_link(email,link) """
+            
+            send_email_verification_message(link, email)
 
         except Exception as e:
             return {"message": str(e)}, 400
@@ -49,7 +51,6 @@ class UserDAO:
             return {"message": str(e)}, 400
 
         return {
-            "verify_link": link,
             "message": "User was created successfully. Please check your email to verify the account",
         }, 201
 

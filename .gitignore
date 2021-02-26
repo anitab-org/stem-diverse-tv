@@ -134,3 +134,4 @@ firebase_cred.json
 
 # local database file
 local_data.db
+google-credentials.json

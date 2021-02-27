@@ -32,6 +32,7 @@ class Feed(Resource):
         videos = section.videos
         videos_data = []
         for video in videos:
+            stream_url = video.url
             if "youtube" in video.url:
                 yt_id = extract_video_id(video.url)
                 video_info = youtube_dl_extract_info(yt_id)
@@ -40,6 +41,8 @@ class Feed(Resource):
                 )
                 if "message" in stream_data or len(stream_data) == 0:
                     return stream_data, 500
-                video_dto = map_to_feed_dto(video, stream_data[0])
-                videos_data.append(video_dto)
+                stream_url = stream_data[0]
+
+            video_dto = map_to_feed_dto(video, stream_url)
+            videos_data.append(video_dto)
         return feed_mapper.map_to_dto(section, videos_data), 200

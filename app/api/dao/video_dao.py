@@ -92,3 +92,7 @@ class VideoDAO:
     @staticmethod
     def remove_video_sections(video: "VideoModel") -> None:
         video.remove_all_sections()
+
+    @staticmethod
+    def delete_video(video) -> None:
+        video.delete_from_db()

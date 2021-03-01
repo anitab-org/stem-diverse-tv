@@ -4,11 +4,17 @@ from firebase_admin import credentials
 from flask import Flask
 from os import environ
 
+from app.api.controllers import api
+from app.database.sqlalchemy_extension import db
+from config import LocalConfig, get_env_config
 
-def create_app() -> Flask:
+
+def create_app(config_env=None) -> Flask:
     app = Flask(__name__)
-
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///local_data.db"
+    if config_env:
+        app.config.from_object(config_env)
+    else:
+        app.config["SQLALCHEMY_DATABASE_URI"] = LocalConfig.SQLALCHEMY_DATABASE_URI
     app.url_map.strict_slashes = False
 
     load_dotenv(find_dotenv())
@@ -28,12 +34,7 @@ def create_app() -> Flask:
     
     app.config.update(mail_settings)
 
-    from app.api.controllers import api
-
     api.init_app(app)
-
-    from app.database.sqlalchemy_extension import db
-
     db.init_app(app)
     
     from app.utils.mail_extension import mail
@@ -42,15 +43,14 @@ def create_app() -> Flask:
     return app
 
 
-application = create_app()
+config, port = get_env_config().values()
+application = create_app(config)
 
 
 @application.before_first_request
 def create_tables():
-    from app.database.sqlalchemy_extension import db
-
     db.create_all()
 
 
 if __name__ == "__main__":
-    application.run(port=5000)
+    application.run(port=port)

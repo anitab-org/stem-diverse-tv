@@ -43,6 +43,19 @@ or
 ```
 python3 run.py
 ```
+**Database setup:**
+1. if you take a look into `.env.template` you will see that there are multiple config environments (the easiest for the use is local, no database setup)
+2. for the ones where the database is necessary, you will need to provide the DB details in the `.env` file
+
+PostgreSQL is the database that we are going to use in the deployed version. Here is the script that will help you create the Postgres user and and database. Of course. you need to have PostgreSQL
+installed on your local machine.
+
+```
+# CREATEDB for the privilege to create it's own DB
+CREATE USER <stem_diverse> WITH PASSWORD 'examplepassword' CREATEDB;
+
+CREATE DATABASE <database_name> WITH OWNER <stem_diverse> ENCODING 'UTF8' LC_COLLATE = 'en_US.UTF-8' LC_CTYPE = 'en_US.UTF-8';
+```
 
 #### Fork
 

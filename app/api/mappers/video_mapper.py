@@ -17,6 +17,7 @@ def map_to_dto(video: "VideoModel"):
 def map_to_feed_dto(video: "VideoModel", stream_url: str):
     """
     Maps VideoModel to feed representation
+    :param stream_url: url of the MP4 stream
     :param video: VideoModel
     :return: Feed json
     """

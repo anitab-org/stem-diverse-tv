@@ -209,3 +209,20 @@ class GetVideoStream(Resource):
         stream_info = youtube_dl_extract_format(info, format)
 
         return {"stream": stream_info}, 200
+
+
+@video_ns.route('/<int:id>')
+class DeleteVideo(Resource):
+    @token_required
+    @video_ns.doc(
+        params={
+            "authorization": {"in": "header", "description": "An authorization token"}
+        }
+    )
+    def delete(self, id):
+        video = VideoDAO.find_video_by_id(id)
+        if not video:
+            return RESOURCE_NOT_FOUND, 404
+
+        VideoDAO.delete_video(video)
+        return {"message": "Video Deleted Successfully."}, 200

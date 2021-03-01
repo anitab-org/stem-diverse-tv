@@ -2,6 +2,7 @@ import firebase_admin
 from dotenv import load_dotenv, find_dotenv
 from firebase_admin import credentials
 from flask import Flask
+from os import environ
 
 from app.api.controllers import api
 from app.database.sqlalchemy_extension import db
@@ -21,9 +22,23 @@ def create_app(config_env=None) -> Flask:
     """ Download service file from firebase and put it in project root directory """
     cred = credentials.Certificate("google-credentials.json")
     firebase_admin.initialize_app(cred)
+    
+    mail_settings = {
+    "MAIL_SERVER": 'smtp.gmail.com',
+    "MAIL_PORT": 465,
+    "MAIL_USE_TLS": False,
+    "MAIL_USE_SSL": True,
+    "MAIL_USERNAME": environ.get('EMAIL_USER'),
+    "MAIL_PASSWORD": environ.get('EMAIL_PASS')
+    }
+    
+    app.config.update(mail_settings)
 
     api.init_app(app)
     db.init_app(app)
+    
+    from app.utils.mail_extension import mail
+    mail.init_app(app)
 
     return app
 

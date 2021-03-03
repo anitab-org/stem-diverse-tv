@@ -98,6 +98,20 @@ origin  https://github.com/YOUR_GITHUB_USER_NAME/stem-diverse-tv (push)
 upstream        https://github.com/anitab-org/stem-diverse-tv (fetch)
 upstream        https://github.com/anitab-org/stem-diverse-tv (push)
 ```
+## YouTube Data API Enabling
+
+**Steps**
+
+- You need a [Google Account](https://www.google.com/accounts/NewAccount) to access the Google API Console, request an API key, and register your application.
+- Create a project in the [Google Developers Console](https://console.developers.google.com/) and [obtain authorization credentials]      (https://developers.google.com/youtube/registering_an_application) so your application can submit API requests.
+- After creating your project, make sure the YouTube Data API is one of the services that your application is registered to use:
+  - Go to the [API Console](https://console.developers.google.com/) and select the project that you just registered.
+  - Visit the [Enabled APIs page](https://console.developers.google.com/apis/enabled). In the list of APIs, make sure the status is ON for the YouTube Data API v3
+- If your application will use any API methods that require user authorization, read the [authentication](https://developers.google.com/youtube/v3/guides/authentication) guide to learn how to implement OAuth 2.0 authorization.
+- Select a [client library](https://developers.google.com/youtube/v3/libraries) to simplify your API implementation.
+- Familiarize yourself with the core concepts of the JSON (JavaScript Object Notation) data format. JSON is a common, language-independent data format that provides a simple text representation of arbitrary data structures. For more information, see [json.org](http://json.org/).
+
+
 
 ## Contributing
 

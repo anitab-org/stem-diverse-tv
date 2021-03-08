@@ -13,7 +13,7 @@ from app.api.validations.video import (
     validate_video_creation_data,
     validate_video_sections_data,
 )
-from app.utils.extract_video_id import extract_video_id
+from app.utils.video_utils import extract_video_id, yt_duration_to_seconds
 from app.utils.youtube_dl import *
 from app.utils.messages import RESOURCE_NOT_FOUND
 from flask import Response, jsonify, request
@@ -113,15 +113,17 @@ class AddYoutubeVideo(Resource):
         video_url = payload["url"]
         video_id = extract_video_id(video_url)
         response = requests.get(
-            f'https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cid%2Clocalizations%2Cstatistics%2CtopicDetails&id={video_id}&key={os.environ.get("API_KEY")}'
+            f'https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cid%2Cstatus&id={video_id}&key={os.environ.get("API_KEY")}'
         )
         video_json = response.json()
-        response = {"notes": []}
+        result = {"notes": []}
         if len(video_json["items"]) == 0:
-            response["notes"].append("No video found, please check the url.")
-            return response, 404
+            result["notes"].append("No video found, please check the url.")
+            return result, 404
         else:
             video = video_json["items"][0]
+
+        raw_video_duration = video["contentDetails"]["duration"].split("T")[1]
 
         video_data = {
             "title": video["snippet"]["title"],
@@ -130,10 +132,14 @@ class AddYoutubeVideo(Resource):
             "date_published": video["snippet"]["publishedAt"].split("T")[0],
             "source": "YouTube",
             "channel": video["snippet"]["channelTitle"],
-            "duration": video["contentDetails"]["duration"].split("T")[1],
+            "duration": yt_duration_to_seconds(video["contentDetails"]["duration"]),
             "archived": False,
-            "free_to_reuse": video["contentDetails"]["licensedContent"],
-            "authorized_to_reuse": video["contentDetails"]["licensedContent"],
+            "free_to_reuse": (
+                True
+                if video["status"]["license"] == "creativeCommon"
+                else not video["contentDetails"]["licensedContent"]
+            ),
+            "authorized_to_reuse": False,
         }
 
         validation_result = validate_video_creation_data(video_data)
@@ -163,8 +169,8 @@ class AddYoutubeVideo(Resource):
                 video_data.get("authorized_to_reuse"),
             )
 
-        response["video"] = map_to_dto(video)
-        return response, 200
+        result["video"] = map_to_dto(video)
+        return {"123": response.json(), "result": result}, 200
 
 
 @video_ns.route("/<int:id>/sections")
@@ -211,7 +217,7 @@ class GetVideoStream(Resource):
         return {"stream": stream_info}, 200
 
 
-@video_ns.route('/<int:id>')
+@video_ns.route("/<int:id>")
 class DeleteVideo(Resource):
     @token_required
     @video_ns.doc(

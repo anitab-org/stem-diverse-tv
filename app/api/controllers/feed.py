@@ -1,7 +1,7 @@
 from flask_restplus import Namespace, Resource
 from flask import request
 
-from app.utils.extract_video_id import extract_video_id
+from app.utils.video_utils import extract_video_id
 from app.utils.messages import SECTION_ID_NOT_PROVIDED, RESOURCE_NOT_FOUND
 from app.utils.youtube_dl import youtube_dl_extract_info, youtube_dl_extract_format
 from ..dao.section_dao import SectionDAO

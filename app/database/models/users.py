@@ -11,8 +11,11 @@ class UserModel(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30))
-    username = db.Column(db.String(30))
-    email = db.Column(db.String(100))
+    username = db.Column(db.String(30), unique=True, nullable=False)
+    # TODO: we need validation for this
+    email = db.Column(db.String(100), unique=True, nullable=False)
+    # sqlalchemy_utils offers custom data types - Email is one them
+    # https://sqlalchemy-utils.readthedocs.io/en/latest/data_types.html#module-sqlalchemy_utils.types.email
     firebase_id = db.Column(db.String(50))
     password_hash = db.Column(db.String(100))
     registration_date = db.Column(db.Integer)
@@ -22,7 +25,7 @@ class UserModel(db.Model):
     email_verification_date = db.Column(db.Integer)
 
     def __init__(
-        self, name, firebase_id, username, email, password, terms_and_conditions_checked
+            self, name, firebase_id, username, email, password, terms_and_conditions_checked
     ):
         self.name = name
         self.username = username

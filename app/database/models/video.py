@@ -10,12 +10,11 @@ class VideoModel(db.Model):
     __table_args__ = {"extend_existing": True}
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.Text())
-    url = db.Column(db.Text(), unique=True)
+    url = db.Column(db.Text(), unique=True, index=True)
     preview_url = db.Column(db.Text())
-    title = db.Column(db.String(200))
+    title = db.Column(db.String(200), unique=True, nullable=False, index=True)
     date_published = db.Column(db.Date)
-    source = db.Column(db.String(50), default="Youtube")
+    source = db.Column(db.String(50), default="YouTube")
     channel = db.Column(db.String(100))
     duration = db.Column(db.Integer)
     archived = db.Column(db.Boolean)
@@ -26,7 +25,6 @@ class VideoModel(db.Model):
         """Returns VideoModel object in json format."""
         return {
             "id": self.id,
-            "name": self.name,
             "url": self.url,
             "preview_url": self.preview_url,
             "title": self.title,
@@ -45,20 +43,26 @@ class VideoModel(db.Model):
 
     def save_to_db(self) -> None:
         """Add video to database"""
-        db.session.add(self)
-        db.session.commit()
+        try:
+            db.session.add(self)
+            db.session.commit()
+        except Exception as e:
+            raise e
 
     def update(self, new_data: Dict[str, object]) -> None:
         """Update existing video with new data"""
         for field in new_data:
             if hasattr(self, field):
                 setattr(self, field, new_data[field])
-        db.session.commit()
+        self._try_commit()
 
     def delete_from_db(self) -> None:
         """Deletes video from the database."""
-        db.session.delete(self)
-        db.session.commit()
+        try:
+            db.session.delete(self)
+            db.session.commit()
+        except Exception as e:
+            raise e
 
     # authors association
     def add_authors(self, authors: List["AuthorModel"]) -> None:
@@ -68,7 +72,7 @@ class VideoModel(db.Model):
         :return: None
         """
         self.authors.extend(authors)
-        db.session.commit()
+        self._try_commit()
 
     def update_authors(self, authors: List["AuthorModel"]) -> None:
         """
@@ -77,7 +81,7 @@ class VideoModel(db.Model):
         :return: None
         """
         self.authors = authors
-        db.session.commit()
+        self._try_commit()
 
     def remove_all_authors(self):
         """
@@ -85,7 +89,7 @@ class VideoModel(db.Model):
         :return: None
         """
         self.authors = []
-        db.session.commit()
+        self._try_commit()
 
     # authors association
     def add_sections(self, sections: List["SectionModel"]) -> None:
@@ -95,7 +99,7 @@ class VideoModel(db.Model):
         :return: None
         """
         self.sections.extend(sections)
-        db.session.commit()
+        self._try_commit()
 
     def update_sections(self, sections: List["SectionModel"]) -> None:
         """
@@ -104,7 +108,7 @@ class VideoModel(db.Model):
         :return: None
         """
         self.sections = sections
-        db.session.commit()
+        self._try_commit()
 
     def remove_all_sections(self):
         """
@@ -112,4 +116,10 @@ class VideoModel(db.Model):
         :return: None
         """
         self.sections = []
-        db.session.commit()
+        self._try_commit()
+
+    def _try_commit(self):
+        try:
+            db.session.commit()
+        except Exception as e:
+            raise e

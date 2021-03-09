@@ -11,6 +11,7 @@ class VideoModel(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     url = db.Column(db.Text(), unique=True, index=True)
+    summary = db.Column(db.Text())
     preview_url = db.Column(db.Text())
     title = db.Column(db.String(200), unique=True, nullable=False, index=True)
     date_published = db.Column(db.Date)

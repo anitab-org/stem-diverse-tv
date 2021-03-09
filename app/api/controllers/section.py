@@ -45,7 +45,7 @@ class Section(Resource):
         return map_to_dto(section), 201
 
     def get(self):
-        sections = SectionDAO.get_all_sections()
+        sections = SectionDAO.find_all_sections()
         result = list(map(lambda section: map_to_dto(section), sections))
         return {"sections": result}, 200
 

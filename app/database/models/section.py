@@ -41,5 +41,3 @@ class SectionModel(db.Model):
         db.session.add(self)
         db.session.commit()
 
-    def json(self):
-        return {"id": self.id, "title": self.title}

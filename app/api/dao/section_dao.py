@@ -70,3 +70,7 @@ class SectionDAO:
     @staticmethod
     def delete_section(section):
         return section.delete_from_db()
+
+    @staticmethod
+    def get_all_sections():
+        return SectionModel.query.all()

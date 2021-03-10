@@ -8,7 +8,8 @@ class SectionModel(db.Model):
     __table_args__ = {"extend_existing": True}
 
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(64), unique=True)
+    # NOTE: won't have much sections (compared to videos), not need index at this point
+    title = db.Column(db.String(64), unique=True, nullable=False)
     videos = db.relationship(
         "VideoModel",
         secondary=section_video,
@@ -20,8 +21,12 @@ class SectionModel(db.Model):
 
     def save_to_db(self) -> None:
         """Add section to database"""
-        db.session.add(self)
-        db.session.commit()
+        try:
+            db.session.add(self)
+            db.session.commit()
+        except Exception:
+            db.rollback()
+            raise
 
     def delete_from_db(self) -> None:
         """Deletes section from the database."""
@@ -33,11 +38,18 @@ class SectionModel(db.Model):
         for field, field_value in kwargs.items():
             if hasattr(self, field):
                 setattr(self, field, field_value)
-        db.session.commit()
-        return self
+        try:
+            db.session.commit()
+            return self
+        except Exception:
+            db.session.rollback()
+            raise
 
     def add_video(self, video: "VideoModel") -> None:
         self.videos.append(video)
-        db.session.add(self)
-        db.session.commit()
-
+        try:
+            db.session.add(self)
+            db.session.commit()
+        except Exception:
+            db.rollback()
+            raise

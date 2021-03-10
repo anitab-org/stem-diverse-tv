@@ -51,6 +51,10 @@ class SectionDAO:
         return SectionModel.query.filter(SectionModel.id.in_(ids))
 
     @staticmethod
+    def find_all_sections():
+        return SectionModel.query.all()
+
+    @staticmethod
     def update_section(section, **kwargs):
         return section.update(**kwargs)
 

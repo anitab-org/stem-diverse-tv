@@ -1,7 +1,6 @@
 from flask_restplus import Namespace, Resource
 from flask import request
 from sqlalchemy.exc import SQLAlchemyError
-
 from app.api.models.section import *
 from app.api.validations.section import *
 from app.api.dao.section_dao import SectionDAO
@@ -44,6 +43,11 @@ class Section(Resource):
         except SQLAlchemyError as e:
             return {"message": f"Data cannot be persisted. Original error: {e}"}, 500
         return map_to_dto(section), 201
+
+    def get(self):
+        sections = SectionDAO.find_all_sections()
+        result = list(map(lambda section: map_to_dto(section), sections))
+        return {"sections": result}, 200
 
 
 @section_ns.route("/<int:id>")

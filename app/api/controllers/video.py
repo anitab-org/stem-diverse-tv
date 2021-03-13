@@ -170,7 +170,7 @@ class AddYoutubeVideo(Resource):
             )
 
         result["video"] = map_to_dto(video)
-        return {"123": response.json(), "result": result}, 200
+        return result, 200
 
 
 @video_ns.route("/<int:id>/sections")

@@ -1,0 +1,21 @@
+
+services:
+    test_postgres:
+      container_name: test_postgres
+      image: postgres
+      environment: 
+        POSTGRES_PASSWORD: postgres
+        POSTGRES_DB: stem_diverse_tv_test
+      ports:
+        - 5432:5432
+
+    stem_diverse_tv_test: 
+      container_name: stem_diverse_tv_Test
+      build: .  
+      depends_on:
+        - test_postgres 
+      environment: 
+        FLASK_ENVIRONMENT_CONFIG: test 
+      command: 
+        - python_tests
+        

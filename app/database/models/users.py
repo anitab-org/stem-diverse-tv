@@ -1,8 +1,17 @@
 from app.database.sqlalchemy_extension import db
 
 from werkzeug.security import generate_password_hash, check_password_hash
-from sqlalchemy.sql import func
+from sqlalchemy.sql import expression
+from sqlalchemy.ext.compiler import compiles
+from sqlalchemy.types import DateTime
 
+# NOTE: creation of timestamp is passed directly to database, the best way
+class utcnow(expression.FunctionElement):
+    type = DateTime()
+
+@compiles(utcnow, 'postgresql')
+def pg_utcnow(element, compiler, **kw):
+    return "TIMEZONE('utc', CURRENT_TIMESTAMP)"
 
 class UserModel(db.Model):
     # Specifying table
@@ -15,7 +24,7 @@ class UserModel(db.Model):
     email = db.Column(db.String(100))
     firebase_id = db.Column(db.String(50))
     password_hash = db.Column(db.String(100))
-    registration_date = db.Column(db.DateTime(timezone=True), server_default=func.now())
+    registration_date = db.Column(db.DateTime, server_default=utcnow())
     terms_and_conditions_checked = db.Column(db.Boolean)
     access_rights = db.Column(db.Integer)
     is_email_verified = db.Column(db.Boolean)

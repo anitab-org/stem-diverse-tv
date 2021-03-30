@@ -41,7 +41,7 @@ def create_app(config_env=None) -> Flask:
             r"*": {
                 "origins": [
                     "http://localhost:3000",
-                    "https://stem-diverse-tv.herokuapp.com/",
+                    "https://anitab-org.github.io",
                 ]
             }
         },

@@ -9,7 +9,7 @@
 * When submitting a PR with changes to user interface (e.g.: new screen, ...), please add screenshots to the PR description.
 * Before committing your changes, **apply** black auto-format - `black {name_of_the_file.py}` for specific file or `black .` to reformat all files
 * When you are finished with your work, please squash your commits otherwise we will squash them on your PR (this can help us maintain a clear commit history). 
-* When creating an issue to report a bug in the project, please follow our [bug_report.md](https://github.com/anitab-org/stem-diverse tv/blob/master/.github/ISSUE_TEMPLATE/bug_report.md) template.
+* When creating an issue to report a bug in the project, please follow our [bug_report.md](https://github.com/anitab-org/stem-diversetv/blob/master/.github/ISSUE_TEMPLATE/bug_report.md) template.
 * Issues labeled as “First Timers Only” are meant for contributors who have not contributed to the project yet. Please choose other issues to contribute to, if you have already contributed to these type of issues.
 
 ## General Guidelines

@@ -6,13 +6,6 @@
 
 STEM Diverse TV is a project which gather and provide inspiring, motivating, informative, educational and supportive videos about diversity in STEM. This is the backend of the project.
 
-**Table of Contents**
-
-- [Setup and run](#setup-and-run)
-- [Contributing](#contributing)
-- [Contact](#contact)
-- [License](#license)
-
 ## Setup and run
 
 To setup the project locally follow the instructions:

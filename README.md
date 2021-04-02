@@ -75,7 +75,7 @@ _**Note**_: *For this you need to install git on your machine. You can download 
 
  * Now after you cloned the repository, get into the anitab-org.github.io directory by -
 
-   `cd stem-diverse-tv`
+   `stem-diverse-tv`
 
 #### Remote
 

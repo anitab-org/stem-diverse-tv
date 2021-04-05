@@ -73,7 +73,7 @@ _**Note**_: *For this you need to install git on your machine. You can download 
 
    `git clone https://github.com/anitab-org/stem-diverse-tv`
 
- * Now after you cloned the repository, get into the stem-diverse-tv directory by -
+ * Now after you cloned the repository, move to stem-diverse-tv directory by -
 
    `cd stem-diverse-tv`
 

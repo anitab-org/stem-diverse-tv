@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[10],{80:function(e){e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Welcome","permalink":"/stem-diverse-tv/blog/welcome"},{"title":"Hello","permalink":"/stem-diverse-tv/blog/hello-world"},{"title":"Hola","permalink":"/stem-diverse-tv/blog/hola"}]}')}}]);

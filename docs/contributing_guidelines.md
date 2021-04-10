@@ -1,15 +1,19 @@
-# Contributing Guidelines
+---
+title: Contributing Guidelines
+slug: /Contribution/contributing_guidelines
+---
+
 
 * You can join us on [AnitaB.org Open Source Zulip](https://anitab-org.zulipchat.com/).  Each active repo has its own stream to direct questions to (for example #mentorship-system or #portal).  STEM-diverse-tv stream is [#STEM-diverse-tv](https://anitab-org.zulipchat.com/#narrow/stream/225705-STEM-diverse-tv).
 * Remember that this is an inclusive community, committed to creating a safe, positive environment.  See the full [Code of Conduct](http://www.systers.io/code-of-conduct.html).
 * Follow our [Commit Message Style Guide](https://github.com/anitab-org/mentorship-android/wiki/Commit-Message-Style-Guide) when you commit your changes.
 * Please consider raising an issue before submitting a pull request (PR) to solve a problem that is not present in our [issue tracker](https://github.com/anitab-org/stem-diverse-tv-backend/issues). This allows maintainers to first validate the issue you are trying to solve and also reference the PR to a specific issue.
 * When developing a new feature, include at least one test when applicable.
-* When submitting a PR, please follow [this template](PULL_REQUEST_TEMPLATE.md) (which will probably be already filled up once you create the PR).
+* When submitting a PR, please follow [this template](https://raw.githubusercontent.com/anitab-org/stem-diverse-tv/master/.github/PULL_REQUEST_TEMPLATE.md) (which will probably be already filled up once you create the PR).
 * When submitting a PR with changes to user interface (e.g.: new screen, ...), please add screenshots to the PR description.
 * Before committing your changes, **apply** black auto-format - `black {name_of_the_file.py}` for specific file or `black .` to reformat all files
 * When you are finished with your work, please squash your commits otherwise we will squash them on your PR (this can help us maintain a clear commit history). 
-* When creating an issue to report a bug in the project, please follow our [bug_report.md](ISSUE_TEMPLATE/bug_report.md) template.
+* When creating an issue to report a bug in the project, please follow our [bug_report.md](https://raw.githubusercontent.com/anitab-org/stem-diverse-tv/master/.github/ISSUE_TEMPLATE/bug_report.md) template.
 * Issues labeled as “First Timers Only” are meant for contributors who have not contributed to the project yet. Please choose other issues to contribute to, if you have already contributed to these type of issues.
 
 ## General Guidelines

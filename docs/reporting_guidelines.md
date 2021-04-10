@@ -1,4 +1,8 @@
-# Reporting Guidelines
+---
+title: Reporting Guidelines
+slug: /Guidelines/reporting_guidelines
+---
+
 
 If you believe someone is violating the code of conduct we ask that you report it to the community admins by emailing opensource@anitab.org.
 

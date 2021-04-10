@@ -1,4 +1,7 @@
-# Code of Conduct
+---
+title: Code of Conduct
+slug: /Guidelines/code_of_conduct
+---
 
 ## 1. Purpose
 

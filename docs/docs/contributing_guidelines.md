@@ -1,4 +1,8 @@
-# Contributing Guidelines
+---
+title: Contributing Guidelines
+slug: /Contribution/contributing_guidelines
+---
+
 
 * You can join us on [AnitaB.org Open Source Zulip](https://anitab-org.zulipchat.com/).  Each active repo has its own stream to direct questions to (for example #mentorship-system or #portal).  STEM-diverse-tv stream is [#STEM-diverse-tv](https://anitab-org.zulipchat.com/#narrow/stream/225705-STEM-diverse-tv).
 * Remember that this is an inclusive community, committed to creating a safe, positive environment.  See the full [Code of Conduct](http://www.systers.io/code-of-conduct.html).

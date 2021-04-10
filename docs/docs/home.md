@@ -1,6 +1,6 @@
 ---
 title: Home
-slug: /home
+slug: /
 ---
 
 STEM Diverse TV is an app which provides inspire, motivating, supportive, educational and informative videos content to promote and increase diversity in STEM. We chose video content first, because this is growing trend in younger generations and this specific generation can make an real impact in future rate of diversity in STEM.

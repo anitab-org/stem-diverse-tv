@@ -2,7 +2,6 @@
 
 [![project chat](https://img.shields.io/badge/zulip-join_chat-brightgreen.svg)](https://anitab-org.zulipchat.com/#narrow/stream/225705-STEM-diverse-tv) [![project chat](https://img.shields.io/badge/Docusauras%20-2.0.0--alpha.72-brightgreen)](https://anitab-org.github.io/stem-diverse-tv/)
 
-# stem-diverse-tv
 
 STEM Diverse TV is a project which gather and provide inspiring, motivating, informative, educational and supportive videos about diversity in STEM. This is the backend of the project. Documentation of the project is hosted [here](https://anitab-org.github.io/stem-diverse-tv/)
 

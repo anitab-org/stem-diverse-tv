@@ -7,7 +7,21 @@
   "contributorsSortAlphabetically": false,
   "badgeTemplate": "[![All Contributors](https://img.shields.io/badge/all_contributors-<%= contributors.length %>-orange.svg?style=flat-square)](#contributors)",
   "skipCi": true,
-  "contributors": [],
+  "contributors": [
+    {
+      "login": "annabauza",
+      "name": "Anna Bauza",
+      "avatar_url": "https://avatars.githubusercontent.com/u/31966073?v=4",
+      "profile": "https://github.com/annabauza",
+      "contributions": [
+        "code",
+        "maintenance",
+        "test",
+        "doc",
+        "design"
+      ]
+    }
+  ],
   "projectName": "stem-diverse-tv",
   "projectOwner": "anitab-org",
   "repoType": "github",

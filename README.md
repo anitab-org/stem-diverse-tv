@@ -124,6 +124,17 @@ Please read our [Contributing Guidelines](docs/contributing_guidelines.md), [Cod
 Thanks goes to these people ([emoji key](https://github.com/all-contributors/all-contributors#emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/annabauza"><img src="https://avatars.githubusercontent.com/u/31966073?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Anna Bauza</b></sub></a><br /><a href="https://github.com/anitab-org/stem-diverse-tv/commits?author=annabauza" title="Code">💻</a> <a href="#maintenance-annabauza" title="Maintenance">🚧</a> <a href="https://github.com/anitab-org/stem-diverse-tv/commits?author=annabauza" title="Tests">⚠️</a> <a href="https://github.com/anitab-org/stem-diverse-tv/commits?author=annabauza" title="Documentation">📖</a> <a href="#design-annabauza" title="Design">🎨</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification.

@@ -1,14 +1,6 @@
 name: Run tests
 
 on:
-  push:
-    branches:
-      - master
-      - develop
-  pull_request:
-    branches:
-      - master
-      - develop
   workflow_run:
     workflows: ["Lint code with Black"]
     types: [completed]

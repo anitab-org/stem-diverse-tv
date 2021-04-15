@@ -21,8 +21,8 @@ Fixes # [ISSUE]
 
 
 ### How Has This Been Tested?
-Describe the tests you ran to verify your changes. Provide instructions or GIFs so we can reproduce. List any relevant details for your test.
 
+Describe the tests you ran to verify your changes. Provide instructions or GIFs so we can reproduce. List any relevant details for your test. Also, add the build link to the Github Actions Workflow (e.g. https://github.com/anitab-org/stem-diverse-tv/actions/runs/747608423)
 
 ### Checklist:
 **Delete irrelevant options.**

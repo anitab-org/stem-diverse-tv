@@ -2,13 +2,9 @@ name: Lint code & Run tests
 
 on:
   push:
-    branches:
-      - master
-      - develop
+    branches: [master, develop]
   pull_request:
-    branches:
-      - master
-      - develop
+    branches: [master, develop]
 
 jobs:
   lint:

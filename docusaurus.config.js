@@ -1,7 +1,7 @@
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
-  title: 'My Site',
-  tagline: 'STEM Diverse TV Doc',
+  title: 'Stem-diverse-tv',
+  tagline: 'Documentation for Stem-diverse-TV',
   url: 'https://your-docusaurus-test-site.com',
   baseUrl: '/stem-diverse-tv/',
   onBrokenLinks: 'throw',

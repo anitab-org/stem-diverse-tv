@@ -1,7 +1,7 @@
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
-  title: 'My Site',
-  tagline: 'The tagline of my site',
+  title: 'Stem-diverse-tv',
+  tagline: 'Documentation for Stem-diverse-TV',
   url: 'https://your-docusaurus-test-site.com',
   baseUrl: '/stem-diverse-tv/',
   onBrokenLinks: 'throw',
@@ -64,7 +64,7 @@ module.exports = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} AnitaB.org.`,
     },
   },
   presets: [

@@ -10,7 +10,7 @@ STEM Diverse TV is a project which gather and provide inspiring, motivating, inf
 * **Framework:** [Flask 1.1.2](https://flask.palletsprojects.com/en/1.1.x/)
 * **Flask Extensions:** [Flask-RESTX 0.3.0 ](https://flask-restx.readthedocs.io/en/latest/), [Flask-SQLAlchemy 2.5.1](http://flask-sqlalchemy.pocoo.org/), [Flask-JWT-Extended 4.1.0](https://flask-jwt-extended.readthedocs.io/en/latest/)
 * **Hosting Service:** Heroku
-* **Database:** Relational Database
+* **Database:** [PostgreSQL 13.2](https://www.postgresql.org/)
 
 ## Setup and run
 

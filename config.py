@@ -5,7 +5,7 @@ load_dotenv(find_dotenv())
 
 
 class BaseConfig:
-    """ Base env configuration."""
+    """Base env configuration."""
 
     # server settings
     DEBUG = False

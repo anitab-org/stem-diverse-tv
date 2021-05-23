@@ -56,7 +56,7 @@ class UserDAO:
 
     @staticmethod
     def authenticate(email: str, password: str):
-        """ User login process"""
+        """User login process"""
 
         try:
             user = auth.get_user_by_email(email)

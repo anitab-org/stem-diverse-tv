@@ -1,5 +1,6 @@
 from flask import request
 from flask_restplus import Namespace, Resource
+from app.database.models.category import CategoryModel
 from app.api.models.category import *
 from app.api.mappers.category_mapper import map_to_dto
 from app.api.mappers.section_mapper import *

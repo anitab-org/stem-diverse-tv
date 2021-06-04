@@ -34,6 +34,10 @@ class CategoryDAO:
         return CategoryModel.query.filter_by(title=title).first()
 
     @staticmethod
+    def find_all_categories():
+        return CategoryModel.query.all()
+
+    @staticmethod
     def create_or_find_category(title: str):
         category = CategoryDAO.find_category_by_title(title)
         if category is None:

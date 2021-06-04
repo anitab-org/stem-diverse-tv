@@ -44,7 +44,7 @@ class Category(Resource):
 @category_ns.route("/all")
 class AllCategories(Resource):
     def get(self):
-        category_models = CategoryModel.query.all()
+        category_models = CategoryDAO.find_all_categories()
         result = list(map(lambda category: category.json(), category_models))
         return {"categories": result}, 200
 

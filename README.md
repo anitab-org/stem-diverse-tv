@@ -143,8 +143,8 @@ black .
 
 3. After creating your project, make sure the YouTube Data API is one of the services that your application is registered to use:
 
-- Go to the [API Console](https://console.developers.google.com/) and select the project that you just registered.
-- Visit the [Enabled APIs page](https://console.developers.google.com/apis/enabled). In the list of APIs, make sure the status is ON for the YouTube Data API v3
+  - Go to the [API Console](https://console.developers.google.com/) and select the project that you just registered.
+  - Visit the [Enabled APIs page](https://console.developers.google.com/apis/enabled). In the list of APIs, make sure the status is ON for the YouTube Data API v3
 
 ## Contributing
 

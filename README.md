@@ -19,7 +19,7 @@ STEM Diverse TV is a project which gather and provide inspiring, motivating, inf
 
 To setup the project locally follow the instructions:
 
-Please make a virtual environment and run the following commands.
+1. Please make a virtual environment and run the following commands.
 
 ```
 virtualenv venv --python=python3
@@ -27,13 +27,13 @@ source ./venv/bin/activate
 pip3 install -r requirements.txt
 ```
 
-- Please download Firebase Admin SDK service json file from Firebase Console, You can download the file by following below steps:
-  1.  Go to `Project Settings/Service accounts`
-  2.  Click on `Generate New Primary Key`
-  3.  Place the file in project's root directory and rename it to `google-credentials.json`
-- Make .env file from given .env.template file and add details like API_KEY, which is a web api key from firebase. Find your project's web api key in project's overview tab on firebase console.
+2. Please download Firebase Admin SDK service json file from Firebase Console, You can download the file by following below steps:
+    1.  Go to `Project Settings/Service accounts`
+    2.  Click on `Generate New Primary Key`
+    3.  Place the file in project's root directory and rename it to `google-credentials.json`
+3. Make .env file from given .env.template file and add details like API_KEY, which is a web api key from firebase. Find your project's web api key in project's overview tab on firebase console.
 
-Use .env.template file to make a new .env file and add the following details:
+4. Use .env.template file to make a new .env file and add the following details:
 
 ```
 API_KEY=<firebase-project-web-api-key>
@@ -42,7 +42,7 @@ EMAIL_PASS=<Password>
 
 ```
 
-After this, execute:
+5. After this, execute:
 
 ```
 python run.py

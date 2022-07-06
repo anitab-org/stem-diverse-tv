@@ -67,3 +67,7 @@ class AuthorDAO:
 
         for author in authors:
             author.add_video(video)
+
+    @staticmethod
+    def delete_author(author) -> None:
+        author.delete_from_db()

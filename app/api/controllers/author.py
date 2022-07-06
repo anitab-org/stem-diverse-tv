@@ -90,3 +90,19 @@ class AuthorsByName(Resource):
             name = request.args.get("name")
         authors = AuthorDAO.find_authors_by_name(name)
         return {"authors": map_to_dto_list(authors)}, 200
+
+@author_ns.route("/<int:id>")
+class DeleteAuthor(Resource):
+    @token_required
+    @author_ns.doc(
+        params={
+            "authorization": {"in": "header", "description": "An authorization token"}
+        }
+    )
+    def delete(self, id):
+        author = AuthorDAO.find_author_by_id(id)
+        if not author:
+            return RESOURCE_NOT_FOUND, 404
+
+        AuthorDAO.delete_author(author)
+        return {"message": "Author Deleted Successfully."}, 200

@@ -23,7 +23,6 @@ class AuthorList(Resource):
         }
     )
     def post(self):
-
         data = request.json
         validate_result = validate_author_details(data)
         if validate_result != {}:
@@ -90,6 +89,7 @@ class AuthorsByName(Resource):
             name = request.args.get("name")
         authors = AuthorDAO.find_authors_by_name(name)
         return {"authors": map_to_dto_list(authors)}, 200
+
 
 @author_ns.route("/<int:id>")
 class DeleteAuthor(Resource):

@@ -1,13 +1,13 @@
 from app.database.models.category import CategoryModel
 from flask_sqlalchemy import BaseQuery
-from typing import List
 
 
 class CategoryDAO:
     @staticmethod
     def create_category(title: str):
         """
-        Create new section if the params fields are valid and section is not created before.
+        Create new section if the params fields are valid
+        and section is not created before.
         :param title: "section title",
         :return:
         """

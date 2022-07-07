@@ -2,7 +2,6 @@ from flask import request
 from flask_restplus import Resource, Namespace
 
 from app.api.dao.author_dao import AuthorDAO
-from app.api.models.author import *
 from app.api.validations.author import validate_author_details
 from app.database.models.author import AuthorModel
 from app.api.mappers.author_mapper import map_to_dto, map_to_dto_list
@@ -72,7 +71,8 @@ class Author(Resource):
 
 
 @author_ns.route("/<string:name>", "/q")
-# NOTE: it's better to follow route pattern -> every search endpoint could start with this
+# NOTE: it's better to follow route pattern -> every search endpoint could
+# start with this
 class AuthorsByName(Resource):
     @token_required
     @author_ns.doc(

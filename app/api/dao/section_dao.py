@@ -6,7 +6,8 @@ class SectionDAO:
     @staticmethod
     def create_section(title: str) -> "SectionModel":
         """
-        Create new section if the params fields are valid and section is not created before.
+        Create new section if the params fields are valid
+        and section is not created before.
         :param title: "section title",
         :return:
         """

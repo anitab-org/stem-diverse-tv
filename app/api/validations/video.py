@@ -41,7 +41,8 @@ def _validate_payload_structure(data: Dict[str, object]):
 def _validate_date_format(date):
     try:
         datetime.strptime(date, "%Y-%m-%d")
-    except ValueError as e:
+    except ValueError:
         return {
-            "message": "Date format is not valid. Use the following format: ('YYYY-mm-dd')"
+            "message": "Date format is not valid. "
+            + "Use the following format: ('YYYY-mm-dd')"
         }, 400

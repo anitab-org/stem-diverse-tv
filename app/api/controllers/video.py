@@ -8,16 +8,14 @@ from app.api.dao.author_dao import AuthorDAO
 from app.api.dao.section_dao import SectionDAO
 from app.api.dao.video_dao import VideoDAO
 from app.api.middlewares.auth import token_required
-from app.api.models.video import *
 from app.api.validations.video import (
     validate_video_creation_data,
     validate_video_sections_data,
 )
 from app.utils.video_utils import extract_video_id, yt_duration_to_seconds
-from app.utils.youtube_dl import *
 from app.utils.messages import RESOURCE_NOT_FOUND
-from flask import Response, jsonify, request
-from flask_restplus import Api, Namespace, Resource
+from flask import jsonify, request
+from flask_restplus import Namespace, Resource
 
 from ..mappers.video_mapper import map_to_dto
 
@@ -113,7 +111,7 @@ class AddYoutubeVideo(Resource):
         video_url = payload["url"]
         video_id = extract_video_id(video_url)
         response = requests.get(
-            f'https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cid%2Cstatus&id={video_id}&key={os.environ.get("API_KEY")}'
+            f'https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cid%2Cstatus&id={video_id}&key={os.environ.get("API_KEY")}'  # noqa
         )
         video_json = response.json()
         result = {"notes": []}
@@ -122,8 +120,6 @@ class AddYoutubeVideo(Resource):
             return result, 404
         else:
             video = video_json["items"][0]
-
-        raw_video_duration = video["contentDetails"]["duration"].split("T")[1]
 
         video_data = {
             "title": video["snippet"]["title"],

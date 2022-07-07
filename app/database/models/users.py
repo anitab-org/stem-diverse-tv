@@ -1,11 +1,13 @@
 from app.database.sqlalchemy_extension import db
 
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import generate_password_hash
 from sqlalchemy.sql import expression
 from sqlalchemy.ext.compiler import compiles
 from sqlalchemy.types import DateTime
 
 # NOTE: creation of timestamp is passed directly to database, the best way
+
+
 class utcnow(expression.FunctionElement):
     type = DateTime()
 
@@ -19,7 +21,6 @@ class UserModel(db.Model):
     # Specifying table
     __tablename__ = "users"
     __table_args__ = {"extend_existing": True}
-
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30))
     username = db.Column(db.String(30), unique=True, nullable=False)
@@ -29,7 +30,7 @@ class UserModel(db.Model):
     # https://sqlalchemy-utils.readthedocs.io/en/latest/data_types.html#module-sqlalchemy_utils.types.email
     firebase_id = db.Column(db.String(50))
     password_hash = db.Column(db.String(100))
-    registration_date = db.Column(db.DateTime, server_default=utcnow())
+    registration_date = db.Column(db.DateTime)
     terms_and_conditions_checked = db.Column(db.Boolean)
     access_rights = db.Column(db.Integer)
     is_email_verified = db.Column(db.Boolean)
@@ -46,7 +47,8 @@ class UserModel(db.Model):
         self.access_rights = 0
         self.firebase_id = firebase_id
 
-    # TODO: check is_email_verified and email_verification_date - not part of this object
+    # TODO: check is_email_verified and email_verification_date - not part of
+    # this object
     def json(self):
         """Returns UserModel object in json format."""
         return {

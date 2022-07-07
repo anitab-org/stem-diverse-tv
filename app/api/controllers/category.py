@@ -1,11 +1,8 @@
 from flask import request
 from flask_restplus import Namespace, Resource
 from app.database.models.category import CategoryModel
-from app.api.models.category import *
 from app.api.mappers.category_mapper import map_to_dto
-from app.api.mappers.section_mapper import *
 from app.api.middlewares.auth import token_required
-from app.utils.messages import RESOURCE_NOT_FOUND
 from ..dao.category_dao import CategoryDAO
 from ..dao.section_dao import SectionDAO
 from ..validations.category import validate_category_sections_data
@@ -34,7 +31,8 @@ class Category(Resource):
         if existing_category:
             return {"message": "Category already exists"}, 409
 
-        """ Saving title in capitalized letter. Which can prevent inconsistency in finding existing category title. """
+        """ Saving title in capitalized letter.
+        Which can prevent inconsistency in finding existing category title. """
         category = CategoryModel(title.capitalize())
         category.save_to_db()
 

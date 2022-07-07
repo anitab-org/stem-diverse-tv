@@ -1,11 +1,8 @@
 from flask_restplus import Namespace, Resource
 from flask import request
 from sqlalchemy.exc import SQLAlchemyError
-from app.api.models.section import *
-from app.api.validations.section import *
 from app.api.dao.section_dao import SectionDAO
 from app.api.dao.category_dao import CategoryDAO
-from app.api.mappers.section_mapper import *
 from app.utils.messages import (
     SECTION_ALREADY_EXISTS,
     SECTION_TITLE_NOT_UPDATED,

@@ -1,3 +1,4 @@
+import json  # Testing flake8
 from flask import request
 from flask_restplus import Namespace, Resource
 from app.database.models.category import CategoryModel

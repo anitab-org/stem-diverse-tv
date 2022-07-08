@@ -17,6 +17,11 @@ jobs:
   flake8:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
       - name: Setup flake8 annotations
         uses: rbialon/flake8-annotations@v1
       - name: Lint with flake8

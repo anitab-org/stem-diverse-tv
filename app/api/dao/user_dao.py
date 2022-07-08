@@ -42,7 +42,6 @@ class UserDAO:
         try:
             firebase_details = auth.get_user_by_email(email)
             uid = firebase_details.uid
-            firebase_email = firebase_details.email
             user = UserModel(
                 name, uid, username, email, password, terms_and_conditions_checked
             )
@@ -51,7 +50,8 @@ class UserDAO:
             return {"message": str(e)}, 400
 
         return {
-            "message": "User was created successfully. Please check your email to verify the account",
+            "message": "User was created successfully."
+            + "Please check your email to verify the account",
         }, 201
 
     @staticmethod
@@ -72,7 +72,7 @@ class UserDAO:
         API_KEY = environ.get("API_KEY")
         url = (
             "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key="
-            + API_KEY
+            + API_KEY  # noqa
         )
         res = requests.post(url, data=json_string)
         json_response = json.loads(res.text)

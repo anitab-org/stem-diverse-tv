@@ -8,7 +8,8 @@ class SectionModel(db.Model):
     __table_args__ = {"extend_existing": True}
 
     id = db.Column(db.Integer, primary_key=True)
-    # NOTE: won't have much sections (compared to videos), not need index at this point
+    # NOTE: won't have much sections (compared to videos), not need index at
+    # this point
     title = db.Column(db.String(64), unique=True, nullable=False)
     videos = db.relationship(
         "VideoModel",

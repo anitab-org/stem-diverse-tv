@@ -2,7 +2,6 @@ from flask import request
 from flask_restplus import Resource, Namespace
 
 from app.api.dao.user_dao import UserDAO
-from app.api.models.user import *
 from app.api.validations.user import validate_user_signup_data
 
 user_ns = Namespace("users", description="User related functions")
@@ -23,7 +22,7 @@ class RegisterUser(Resource):
 
 
 @user_ns.route("/login")
-class RegisterUser(Resource):
+class LoginUser(Resource):
     @user_ns.expect(login_user_model)
     def post(self):
         data = request.json

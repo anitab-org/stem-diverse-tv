@@ -13,11 +13,11 @@ def token_required(fn):
             return msg.TOKEN_MISSING, 401
         try:
             auth.verify_id_token(token_header)
-        except auth.RevokedIdTokenError as ex:
+        except auth.RevokedIdTokenError:
             return msg.TOKEN_REVOKED, 401
-        except auth.ExpiredIdTokenError as ex:
+        except auth.ExpiredIdTokenError:
             return msg.TOKEN_EXPIRED, 401
-        except auth.InvalidIdTokenError as ex:
+        except auth.InvalidIdTokenError:
             return msg.TOKEN_INVALID, 401
 
         return fn(*args, **kwargs)

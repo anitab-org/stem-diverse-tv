@@ -12,7 +12,7 @@ def validate_user_signup_data(data: Dict[str, str]):
         return {"message": "Please enter valid password"}, 400
     if "terms_and_conditions_checked" not in data:
         return {"message": "Please enter terms and conditions"}, 400
-    if data["terms_and_conditions_checked"] == False:
+    if not data["terms_and_conditions_checked"]:
         return {
             "message": "Please accept terms and conditions in order to register"
         }, 400

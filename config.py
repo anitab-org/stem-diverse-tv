@@ -75,7 +75,8 @@ def get_env_config() -> str:
     config_type = getenv("ENVIRONMENT_CONFIG", "local")
     if config_type not in ["local", "dev", "staging", "test", "production"]:
         raise ValueError(
-            "The environment config value has to be within these values: local, dev, staging, test, production."
+            "The environment config value has to be within these values: "
+            + "local, dev, staging, test, production."
         )
     return CONFIG_MAP[config_type]
 

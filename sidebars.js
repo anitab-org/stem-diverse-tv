@@ -24,6 +24,7 @@ module.exports = {
       type: 'category',
       label: 'Backend',
       items: [
+        'setup_postgresql',
         'setup_backend',
         'database_design',
         'client_expected_payload',

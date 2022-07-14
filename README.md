@@ -56,8 +56,8 @@ python3 run.py
 
 **Database setup:**
 
-1. If you take a look into `.env.template` you will see that there are multiple config environments (the easiest for the use is local, no database setup)
-2. For the ones where the database is necessary, you will need to provide the DB details in the `.env` file
+1. If you take a look into `.env.template`, you will see that there are multiple config environments (the easiest for the use is local, no database setup).
+2. For the ones where the database is necessary, you will need to provide the DB details in the `.env` file.
 
 PostgreSQL is the database that we are going to use in the deployed version. Here is the script that will help you create the Postgres user and database. Of course, you need to have PostgreSQL
 installed on your local machine.

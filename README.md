@@ -6,7 +6,7 @@
 [![Python](https://img.shields.io/badge/Python-14354C?style=for-the-badge&logo=python&logoColor=white)](https://anitab-org.github.io/stem-diverse-tv/)
 [![HTML](https://img.shields.io/badge/HTML-239120?style=for-the-badge&logo=html5&logoColor=white)](https://anitab-org.github.io/stem-diverse-tv/)
 
-STEM Diverse TV is a project which gather and provide inspiring, motivating, informative, educational and supportive videos about diversity in STEM. This is the backend of the project. Documentation of the project is hosted [here](https://anitab-org.github.io/stem-diverse-tv/)
+STEM Diverse TV is a project which gathers and provides inspiring, motivating, informative, educational and supportive videos about diversity in STEM. This is the backend of the project. Documentation of the project is hosted [here](https://anitab-org.github.io/stem-diverse-tv/)
 
 ## Tech Requirements
 * **Languages:** Python 3.x, Javascript (Docusaurus)
@@ -27,7 +27,7 @@ source ./venv/bin/activate
 pip3 install -r requirements.txt
 ```
 
-2. Please download Firebase Admin SDK service json file from Firebase Console, You can download the file by following below steps:
+2. Please download Firebase Admin SDK service json file from Firebase Console. You can download the file by following below steps:
     1.  Go to `Project Settings/Service accounts`
     2.  Click on `Generate New Primary Key`
     3.  Place the file in project's root directory and rename it to `google-credentials.json`
@@ -56,10 +56,10 @@ python3 run.py
 
 **Database setup:**
 
-1. if you take a look into `.env.template` you will see that there are multiple config environments (the easiest for the use is local, no database setup)
-2. for the ones where the database is necessary, you will need to provide the DB details in the `.env` file
+1. If you take a look into `.env.template`, you will see that there are multiple config environments (the easiest for the use is local, no database setup).
+2. For the ones where the database is necessary, you will need to provide the DB details in the `.env` file.
 
-PostgreSQL is the database that we are going to use in the deployed version. Here is the script that will help you create the Postgres user and and database. Of course. you need to have PostgreSQL
+PostgreSQL is the database that we are going to use in the deployed version. Here is the script that will help you create the Postgres user and database. Of course, you need to have PostgreSQL
 installed on your local machine.
 
 ```
@@ -73,7 +73,7 @@ CREATE DATABASE <database_name> WITH OWNER <stem_diverse> ENCODING 'UTF8' LC_COL
 
 _**Note**_: _This is only needed if you want to contribute to the project._
 
-If you want to contribute to the project you will have to create your own copy of the project on GitHub. You can do this by clicking the Fork button that can be found on the top right corner of the [landing page](https://github.com/anitab-org/stem-diverse-tv) of the repository.
+If you want to contribute to the project, you will have to create your own copy of the project on GitHub. You can do this by clicking the Fork button that can be found on the top right corner of the [landing page](https://github.com/anitab-org/stem-diverse-tv) of the repository.
 
 #### Clone
 
@@ -89,7 +89,7 @@ _**Note**_: _For this you need to install git on your machine. You can download 
 
   `git clone https://github.com/anitab-org/stem-diverse-tv`
 
-- Now after you cloned the repository, move to stem-diverse-tv directory by -
+- Now after you have cloned the repository, move to stem-diverse-tv directory by -
 
   `cd stem-diverse-tv`
 
@@ -113,7 +113,7 @@ upstream        https://github.com/anitab-org/stem-diverse-tv (push)
 
 ### Run tests
 
-To run the unitests run the following command in the terminal (while the virtual environment is activated):
+To run the unittests run the following command in the terminal (while the virtual environment is activated):
 
 ```
 python -m unittest discover tests
@@ -121,8 +121,8 @@ python -m unittest discover tests
 
 ### Auto-formatting with black
 
-We use [_Black_](https://github.com/psf/black) to format code automatically so that we don't have to worry about clean and
-readable code. To install _Black_:
+We use [_Black_](https://github.com/psf/black) to format code automatically so that we don't have to worry about clean and readable code.
+To install _Black_:
 
 ```
 pip install black
@@ -171,7 +171,7 @@ Thanks goes to these people ([emoji key](https://github.com/all-contributors/all
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification.
-Contributions of any kind welcome!
+Contributions of any kind are welcome!
 
 ## Contact
 

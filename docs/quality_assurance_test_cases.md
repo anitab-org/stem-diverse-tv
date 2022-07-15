@@ -8,9 +8,9 @@ This document contains some examples of test cases for each feature implemented 
  
 **Notes:**
 
-- Outcome Fail means the test case has no effect in the database, so no changes are done in the data. An error message should be returned. 
+- Outcome *Fail* means the test case has no effect in the database, so no changes are done in the data. An error message should be returned. 
 
-- Outcome Success means that the test case was successful and had an effect in the database, so this change/effect should be reflected in the database.
+- Outcome *Success* means that the test case was successful and had an effect in the database, so this change/effect should be reflected in the database.
 
 # Access to unrestricted APIs
 

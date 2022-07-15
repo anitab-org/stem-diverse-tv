@@ -1,4 +1,4 @@
-This document contains some examples of test cases for each feature implemented on the backend. 
+This document contains some examples of test cases for each feature implemented on the backend. 
 
 **Tools:**
 
@@ -14,7 +14,7 @@ This document contains some examples of test cases for each feature i
 
 # Access to unrestricted APIs
 
-- This part deals with the possible test cases while accessing Unrestricted APIs
+- This part deals with the possible test cases while accessing Unrestricted APIs.
 
 ## Categories 
  

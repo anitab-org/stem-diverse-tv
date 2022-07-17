@@ -39,7 +39,7 @@ class AuthorList(Resource):
             author = AuthorModel(name=name, profile_image=profile_image)
             author.save_to_db()
 
-        return messages.AUTHOR_ADDED_SUCCESSFULLY, 200
+        return {"author": author.json()}, 200
 
     @token_required
     @author_ns.doc(
